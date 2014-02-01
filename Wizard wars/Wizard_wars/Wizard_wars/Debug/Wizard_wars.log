@@ -1,36 +1,36 @@
-﻿Build started 31.1.2014 11:50:42.
-     1>Project "C:\Users\tti13shannus\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Wizard_wars\Wizard_wars.vcxproj" on node 2 (build target(s)).
+﻿Build started 31.1.2014 15:36:14.
+     1>Project "C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Wizard_wars\Wizard_wars.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Touching "Debug\Wizard_wars.unsuccessfulbuild".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\tti13shannus\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\/../SFML-2.1/include/" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\/../SFML-2.1/include/" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(3): error C2628: 'TileMap' followed by 'int' is illegal (did you forget a ';'?)
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(4): error C3874: return type of 'main' should be 'int' instead of 'TileMap'
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(15): error C2664: 'TileMap::TileMap(const TileMap &)' : cannot convert parameter 1 from 'int' to 'const TileMap &'
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(3): error C2628: 'TileMap' followed by 'int' is illegal (did you forget a ';'?)
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(4): error C3874: return type of 'main' should be 'int' instead of 'TileMap'
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(15): error C2664: 'TileMap::TileMap(const TileMap &)' : cannot convert parameter 1 from 'int' to 'const TileMap &'
                  Reason: cannot convert from 'int' to 'const TileMap'
                  No constructor could take the source type, or constructor overload resolution was ambiguous
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(32): error C2664: 'TileMap::TileMap(const TileMap &)' : cannot convert parameter 1 from 'int' to 'const TileMap &'
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\main.cpp(32): error C2664: 'TileMap::TileMap(const TileMap &)' : cannot convert parameter 1 from 'int' to 'const TileMap &'
                  Reason: cannot convert from 'int' to 'const TileMap'
                  No constructor could take the source type, or constructor overload resolution was ambiguous
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(36): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(36): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(37): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(37): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(38): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(38): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(39): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(39): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(41): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(41): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(42): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(42): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(43): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(43): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(44): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\tti13shannus\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(44): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Done Building Project "C:\Users\tti13shannus\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Wizard_wars\Wizard_wars.vcxproj" (build target(s)) -- FAILED.
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(36): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(36): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(37): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(37): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(38): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(38): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(39): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(39): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(41): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(41): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(42): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(42): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(43): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(43): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(44): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\tilemap.h(44): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>Done Building Project "C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Wizard_wars\Wizard_wars.vcxproj" (build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:00.46
+Time Elapsed 00:00:00.65
