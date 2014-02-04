@@ -10,6 +10,6 @@ public:
 	~TileMap(void);
 private:
 	int height,width;
-}
+};
 
 #endif

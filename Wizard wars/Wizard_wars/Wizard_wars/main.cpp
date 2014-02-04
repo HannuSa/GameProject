@@ -1,11 +1,23 @@
 #include <SFML/Graphics.hpp>
-
-
+#include <SFML\Graphics\Texture.hpp>
+#include <iostream>
+#include "Tile.h"
+#include "TileMap.h"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Wizard wars!");
 
+	sf::Texture texture;
+	
+	if (!texture.loadFromFile("../Resources/Ruoho.png"))
+	{
+		std::cout<<"Failure to load";
+	}
+
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
+	sprite.setPosition(sf::Vector2f(50, 50));
 
     while (window.isOpen())
     {
@@ -17,6 +29,7 @@ int main()
         }
 
         window.clear();
+		window.draw(sprite);
         window.display();
     }
 

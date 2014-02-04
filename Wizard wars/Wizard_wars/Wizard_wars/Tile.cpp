@@ -1,9 +1,9 @@
 #include "Tile.h"
 
 
-Tile::Tile(sf::Texture t,float h, float w,bool p)
+Tile::Tile(sf::Sprite s,float h, float w,bool p)
 {
-	texture = t;
+	sprite = s;
 	height = h;
 	width = w;
 	passable = p;
