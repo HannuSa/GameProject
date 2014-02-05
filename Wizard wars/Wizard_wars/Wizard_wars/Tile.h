@@ -5,11 +5,10 @@
 class Tile
 {
 public:
-	Tile(sf::Sprite s,float h, float w,bool p);
+	Tile(sf::Sprite s,bool p);
 	virtual ~Tile(void);
 protected:
 	sf::Sprite sprite;
-	float height, width;
 	bool passable;
 };
 

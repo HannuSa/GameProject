@@ -10,10 +10,7 @@ int main()
 
 	sf::Texture texture;
 	
-	if (!texture.loadFromFile("../Resources/Ruoho.png"))
-	{
-		std::cout<<"Failure to load";
-	}
+	texture.loadFromFile("../Resources/Ruoho.png");
 
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
