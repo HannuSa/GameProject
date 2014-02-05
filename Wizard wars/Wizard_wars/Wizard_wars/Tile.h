@@ -4,11 +4,13 @@
 
 class Tile
 {
+	friend class TileMap;
 public:
-	Tile(sf::Sprite s,bool p);
+	Tile(sf::Sprite s,bool p,sf::Vector2<int> pos);
 	virtual ~Tile(void);
 protected:
 	sf::Sprite sprite;
+	sf::Vector2<int> position;
 	bool passable;
 };
 
