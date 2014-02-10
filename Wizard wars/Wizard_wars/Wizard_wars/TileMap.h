@@ -3,15 +3,21 @@
 
 #include "Tile.h"
 
+#define TILEMAP_WIDTH 100
+#define TILEMAP_HEIGHT 100
+
+#define TILE_WIDTH 32
+#define TILE_HEIGHT 32
+
 class TileMap
 {
 public:
 	TileMap(int h, int w);
 	~TileMap(void);
 	void AddTile(Tile t);
-	void Draw();
 private:
 	int height,width;
+public:
 	std::vector<Tile> tiles;
 };
 

@@ -6,6 +6,9 @@ class Render :public Scene
 public:
 	Render(Scene *scene);
 	~Render(void);
+
+	void update();
+
 private:
 	Scene *scene;
 };

@@ -14,11 +14,3 @@ void TileMap::AddTile(Tile t)
 {
 	tiles.push_back(t);
 }
-
-void TileMap::Draw()
-{
-	for(unsigned int i=1;i<tiles.size();i++)
-	{
-	}
-
-}
