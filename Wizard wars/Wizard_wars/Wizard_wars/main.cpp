@@ -3,10 +3,20 @@
 #include <iostream>
 #include "Tile.h"
 #include "TileMap.h"
+#include "Scene.h"
+#include "Render.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Wizard wars!");
+
+	Scene *scene = new Scene();
+	Render render(scene);
+	for(;;)
+	{
+	render.update();
+	}
+
+    /*sf::RenderWindow window(sf::VideoMode(800, 600), "Wizard wars!");
 
 	sf::Texture texture;
 	
@@ -29,6 +39,6 @@ int main()
 		window.draw(sprite);
         window.display();
     }
-
+	*/
     return 0;
 }

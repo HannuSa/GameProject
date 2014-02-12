@@ -1,16 +1,16 @@
 #include "TileMap.h"
 #include <SFML\Graphics.hpp>
 
-TileMap::TileMap(int h,int w)
+TileMap::TileMap()
 {
-	height = h;
-	width = w;
+	for(int x = 0; x < TILEMAP_WIDTH; ++x)
+	{
+		for(int y = 0; y < TILEMAP_HEIGHT; ++y)
+		{
+			tiles[x][y] =(TileType)1;
+		}
+	}
 }
 
 TileMap::~TileMap()
 {}
-
-void TileMap::AddTile(Tile t)
-{
-	tiles.push_back(t);
-}

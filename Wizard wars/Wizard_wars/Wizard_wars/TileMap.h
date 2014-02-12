@@ -12,13 +12,14 @@
 class TileMap
 {
 public:
-	TileMap(int h, int w);
+	TileMap();
 	~TileMap(void);
-	void AddTile(Tile t);
 private:
-	int height,width;
+
 public:
-	std::vector<Tile> tiles;
+	
+	TileType tiles[TILEMAP_WIDTH][TILEMAP_HEIGHT];
+	
 };
 
 #endif

@@ -2,16 +2,12 @@
 #define Tile_H
 #include <SFML\Graphics.hpp>
 
-class Tile
+enum TileType
 {
-	friend class TileMap;
-public:
-	Tile(sf::Sprite s,bool p,sf::Vector2<int> pos);
-	virtual ~Tile(void);
-protected:
-	sf::Sprite sprite;
-	sf::Vector2<int> position;
-	bool passable;
+	TILE_VOID = 0,
+	TILE_GRASS,
+	TILE_ROCK,
+	TILE_FLOOR,
 };
 
 #endif

@@ -11,6 +11,9 @@ public:
 
 private:
 	Scene *scene;
+	sf::RenderWindow window;
+	sf::Texture Grass;
+	sf::Sprite sprite;
 };
 
 #endif
