@@ -1,8 +1,11 @@
 #include "Scene.h"
 
+Scene::Scene()
+{}
 
-Scene::Scene(void)
+Scene::Scene(Creature *c)
 {
+	creatures.push_back(c);
 }
 
 

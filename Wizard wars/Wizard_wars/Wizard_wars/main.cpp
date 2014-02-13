@@ -3,13 +3,14 @@
 #include <iostream>
 #include "Tile.h"
 #include "TileMap.h"
+#include "Creature.h"
 #include "Scene.h"
 #include "Render.h"
 
 int main()
 {
-
-	Scene *scene = new Scene();
+	Creature *c = new Creature(sf::Vector2<int>(1,1),1);
+	Scene *scene = new Scene(c);
 	Render render(scene);
 	for(;;)
 	{
@@ -40,5 +41,6 @@ int main()
         window.display();
     }
 	*/
+
     return 0;
 }

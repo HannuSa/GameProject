@@ -13,7 +13,9 @@ private:
 	Scene *scene;
 	sf::RenderWindow window;
 	sf::Texture Grass;
+	sf::Texture Test;
 	sf::Sprite sprite;
+	sf::Sprite Test1;
 };
 
 #endif

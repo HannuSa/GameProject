@@ -8,6 +8,8 @@ Render::Render(Scene *scene)
 	window.create(sf::VideoMode(800,600),"Wizard wars");
 	Grass.loadFromFile("../Resources/Ruoho.png");
 	sprite.setTexture(Grass);
+	Test.loadFromFile("../Resources/Guy.png");
+	Test1.setTexture(Test);
 }
 
 
@@ -32,25 +34,31 @@ void Render::update()
 				printf("invalid tile type!");
 				break;
 			case TILE_GRASS:
-				printf("ruohhooo!");
 				sprite.setPosition(x*32,y*32);
 				window.draw(sprite);
 				break;
 			}
-
-
+		}
+	}
+	for(int i=0;i<scene->GetCreatures()->size();i++)
+	{
+		if(creatures[i]->GetType()==1)
+		{
+			Test1.setPosition(creatures[i]->getX(),creatures[i]->getY());
+			window.draw(Test1);
+			printf("pitäs piirtyä");
 		}
 	}
 
-	
-			 while (window.isOpen())
-			{
-			  sf::Event event;
-			 while (window.pollEvent(event))
-			{
-			 if (event.type == sf::Event::Closed)
-                window.close();
-			}
 			 window.display();
+			 if (window.isOpen())
+			{
+				sf::Event event;
+				while (window.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+						window.close();
+					}
+			
 			}
 }
