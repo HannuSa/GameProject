@@ -9,6 +9,7 @@ public:
 	Scene();
 	Scene(Creature *c);
 	~Scene(void);
+	
 protected:
 	TileMap tilemap;
 	std::vector<Creature*> creatures;

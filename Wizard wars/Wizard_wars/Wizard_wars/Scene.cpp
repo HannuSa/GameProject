@@ -12,3 +12,4 @@ Scene::Scene(Creature *c)
 Scene::~Scene(void)
 {
 }
+

@@ -40,15 +40,26 @@ void Render::update()
 			}
 		}
 	}
+	std::vector<Creature*>* Temp(scene->GetCreatures());
 	for(int i=0;i<scene->GetCreatures()->size();i++)
 	{
-		if(creatures[i]->GetType()==1)
-		{
-			Test1.setPosition(creatures[i]->getX(),creatures[i]->getY());
+		if(Temp[i][i]->GetType()==1)
+		{	
+			
+			Test1.setPosition(Temp[i][i]->getX(),Temp[i][i]->getY());
 			window.draw(Test1);
-			printf("pitäs piirtyä");
+			
 		}
+
+		if(Temp[i][i]->GetType()==2)
+		{
+			Test1.setColor(sf::Color(255,0,0));
+			Test1.setPosition(Temp[i][i]->getX(),Temp[i][i]->getY());
+			window.draw(Test1);
+		}
+
 	}
+	//delete Temp;
 
 			 window.display();
 			 if (window.isOpen())
