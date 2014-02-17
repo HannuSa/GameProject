@@ -10,6 +10,8 @@ Render::Render(Scene *scene)
 	sprite.setTexture(Grass);
 	Test.loadFromFile("../Resources/Guy.png");
 	Test1.setTexture(Test);
+	goblin.loadFromFile("../Resources/Goblin.png");
+	Test2.setTexture(goblin);
 }
 
 
@@ -40,27 +42,22 @@ void Render::update()
 			}
 		}
 	}
-	std::vector<Creature*>* Temp(scene->GetCreatures());
-	for(int i=0;i<scene->GetCreatures()->size();i++)
+	std::vector<Creature*>* Temp=scene->GetCreatures();
+	for(int i=0;i<Temp->size();i++)
 	{
-		if(Temp[i][i]->GetType()==1)
+		if(Temp->at(i)->GetType()==1)
 		{	
-			
-			Test1.setPosition(Temp[i][i]->getX(),Temp[i][i]->getY());
+			Test1.setPosition(Temp->at(i)->getX()*32,Temp->at(i)->getY()*32);
 			window.draw(Test1);
-			
 		}
 
-		if(Temp[i][i]->GetType()==2)
+		if(Temp->at(i)->GetType()==2)
 		{
-			Test1.setColor(sf::Color(255,0,0));
-			Test1.setPosition(Temp[i][i]->getX(),Temp[i][i]->getY());
-			window.draw(Test1);
+			Test2.setPosition(Temp->at(i)->getX()*32,Temp->at(i)->getY()*32);
+			window.draw(Test2);
 		}
 
 	}
-	//delete Temp;
-
 			 window.display();
 			 if (window.isOpen())
 			{
@@ -70,6 +67,5 @@ void Render::update()
 						if (event.type == sf::Event::Closed)
 						window.close();
 					}
-			
 			}
 }

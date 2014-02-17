@@ -14,8 +14,10 @@ private:
 	sf::RenderWindow window;
 	sf::Texture Grass;
 	sf::Texture Test;
+	sf::Texture goblin;
 	sf::Sprite sprite;
 	sf::Sprite Test1;
+	sf::Sprite Test2;
 };
 
 #endif

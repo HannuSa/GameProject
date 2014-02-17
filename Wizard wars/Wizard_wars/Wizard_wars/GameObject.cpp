@@ -17,3 +17,9 @@ int GameObject::getY()
 {
 	return Position.y;
 }
+
+void GameObject::Move(int X,int Y)
+{
+	Position.x+=X;
+	Position.y+=Y;
+}

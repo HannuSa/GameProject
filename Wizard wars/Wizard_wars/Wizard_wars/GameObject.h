@@ -9,7 +9,8 @@ public:
 	virtual ~GameObject();
 	int getX();
 	int getY();
-private:
+	void Move(int X,int Y);
+protected:
 	sf::Vector2<int> Position;
 };
 #endif
