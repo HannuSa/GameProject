@@ -1,24 +1,11 @@
-﻿Build started 17.2.2014 22:26:06.
+﻿Build started 19.2.2014 21:09:16.
      1>Project "C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Wizard_wars\Wizard_wars.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Wizard_wars.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\/../SFML-2.1/include/" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Creature.cpp GameObject.cpp Render.cpp Scene.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\/../SFML-2.1/include/" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Scene.cpp
          Scene.cpp
-         Render.cpp
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(39): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(39): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(46): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(50): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(50): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(56): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\render.cpp(56): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         GameObject.cpp
-         Creature.cpp
-         Generating Code...
-         Compiling...
-         main.cpp
-         Generating Code...
+     1>c:\users\user\documents\github\gameproject\wizard wars\wizard_wars\wizard_wars\scene.cpp(61): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Debug\Wizard_wars.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\/../SFML-2.1/lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Wizard_wars.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Debug\Wizard_wars.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\User\Documents\GitHub\GameProject\Wizard wars\Wizard_wars\Debug\Wizard_wars.lib" /MACHINE:X86 Debug\Creature.obj
          Debug\GameObject.obj
@@ -37,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.89
+Time Elapsed 00:00:00.98

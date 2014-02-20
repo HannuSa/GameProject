@@ -8,18 +8,12 @@ GameObject::GameObject(sf::Vector2<int> pos)
 GameObject::~GameObject()
 {}
 
-int GameObject::getX()
+sf::Vector2<int> GameObject::GetPosition()
 {
-	return Position.x;
+	return Position;
 }
 
-int GameObject::getY()
+void GameObject::Move(sf::Vector2<int> newP)
 {
-	return Position.y;
-}
-
-void GameObject::Move(int X,int Y)
-{
-	Position.x+=X;
-	Position.y+=Y;
+	Position = newP;
 }

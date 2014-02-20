@@ -23,6 +23,7 @@ Render::~Render(void)
 void Render::update()
 {
 	window.clear();
+	scene->update();
 
 	for(int x = 0; x < TILEMAP_WIDTH; ++x)
 	{
@@ -47,13 +48,13 @@ void Render::update()
 	{
 		if(Temp->at(i)->GetType()==1)
 		{	
-			Test1.setPosition(Temp->at(i)->getX()*32,Temp->at(i)->getY()*32);
+			Test1.setPosition(Temp->at(i)->GetPosition().x*32,Temp->at(i)->GetPosition().y*32);
 			window.draw(Test1);
 		}
 
 		if(Temp->at(i)->GetType()==2)
 		{
-			Test2.setPosition(Temp->at(i)->getX()*32,Temp->at(i)->getY()*32);
+			Test2.setPosition(Temp->at(i)->GetPosition().x*32,Temp->at(i)->GetPosition().y*32);
 			window.draw(Test2);
 		}
 

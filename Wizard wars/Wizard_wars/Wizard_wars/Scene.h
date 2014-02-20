@@ -11,6 +11,11 @@ public:
 	~Scene(void);
 	void AddCreature(Creature *c);
 	void update();
+	void MoveCreature();
+
+
+	TileType GetTileByPos(sf::Vector2<int> Pos);
+	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
 protected:
 	TileMap tilemap;
 	std::vector<Creature*> creatures;
