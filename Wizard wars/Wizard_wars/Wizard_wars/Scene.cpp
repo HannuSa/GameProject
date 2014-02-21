@@ -37,6 +37,7 @@ sf::Vector2<int> Scene::FindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
 {
 #define NODATA -1
 #define BLOCK -2
+	End.x += 1;
 
 	sf::Vector2<int> positionPatch;
 	positionPatch.x = 0;
