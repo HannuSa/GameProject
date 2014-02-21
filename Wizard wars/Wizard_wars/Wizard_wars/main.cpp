@@ -9,14 +9,15 @@
 
 int main()
 {
-	Creature *c = new Creature(sf::Vector2<int>(1,1),1);
-	Creature *c1 = new Creature(sf::Vector2<int>(5,5),2);
-	Scene *scene = new Scene(c);
-	scene->AddCreature(c1);
-	Render render(scene);
+	Creature *c = new Creature(sf::Vector2<int>(1,1),1,20,5);
+	Creature *c1 = new Creature(sf::Vector2<int>(5,5),2,4,2);
+	Scene scene(c);
+	scene.AddCreature(c1);
+	Render render(&scene);
 	for(;;)
 	{
-	render.update();
+		scene.update();
+		render.update();
 	}
 
     return 0;

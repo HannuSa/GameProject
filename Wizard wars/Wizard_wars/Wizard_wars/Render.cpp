@@ -1,5 +1,4 @@
 #include "Render.h"
-#include <SFML/Graphics.hpp>
 
 
 Render::Render(Scene *scene)
@@ -23,7 +22,6 @@ Render::~Render(void)
 void Render::update()
 {
 	window.clear();
-	scene->update();
 
 	for(int x = 0; x < TILEMAP_WIDTH; ++x)
 	{

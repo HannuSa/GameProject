@@ -1,6 +1,8 @@
 #ifndef Render_H
 #define Render_H
 #include "scene.h"
+#include <SFML/Graphics.hpp>
+
 class Render :public Scene
 {
 public:

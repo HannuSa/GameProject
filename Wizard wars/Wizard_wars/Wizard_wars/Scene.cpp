@@ -5,27 +5,42 @@ Scene::Scene()
 
 Scene::Scene(Creature *c)
 {
-	creatures.push_back(c);
+	Group1.push_back(c);
+	CurrentState = new GameState();
 }
 
 
 Scene::~Scene(void)
 {
+	delete CurrentState;
 }
 
 void Scene::AddCreature(Creature *c)
 {
-	creatures.push_back(c);
+	if(c->GetType()==1)
+	{
+	 Group1.push_back(c);
+	}
+	else
+	{
+		Group2.push_back(c);
+	}
 }
 
 void Scene::update()
 {
-	MoveCreature();
+	if(CurrentState->returnState() == GROUP_1_TURN)
+	{
+	}
+	else if(CurrentState->returnState() == GROUP_2_TURN)
+	{
+		MoveCreature();
+	}
 }
 
 void Scene::MoveCreature()
 {
-	creatures[1]->Move(FindPath(creatures[1]->GetPosition(),creatures[0]->GetPosition()));
+	Group2[0]->Move(FindPath(Group1[0]->GetPosition(),Group1[0]->GetPosition()));
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
@@ -59,9 +74,9 @@ for(int x = 0;x < TILEMAP_WIDTH;x++)
 		if(GetTileByPos(tempPos)==TILE_ROCK)
 		fillData[x][y] = BLOCK;
 
-		for(int i=0;i<creatures.size();i++)
+		for(int i=0;i<Group1.size();i++)
 		{
-			if(creatures[i]->GetPosition()==tempPos)
+			if(Group1[i]->GetPosition()==tempPos)
 			{
 			fillData[x][y] = BLOCK;
 			}

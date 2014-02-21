@@ -1,9 +1,15 @@
 #include "Creature.h"
 
-Creature::Creature(sf::Vector2<int> pos,int t):GameObject(pos)
+Creature::Creature(sf::Vector2<int> pos,int t,int hp,int dam):GameObject(pos)
 {
 	type = t;
 	AP = 7;
+	MaxHp = hp;
+	startDam = dam;
+	CurHp = MaxHp;
+	CurDam = startDam;
+	action = SEEK;
+	status = ALIVE;
 }
 
 Creature::~Creature()
@@ -19,16 +25,10 @@ int Creature::GetAP()
 	return AP;
 }
 
-
-
-void Creature::UseAP(bool Use,int A)
+void Creature::UseAP(int A)
 {
-	if (Use == true)
+	if(A <= AP)
 	{
-		AP-=A;
-	}
-	else
-	{
-		AP+=A;
+		AP -= A;
 	}
 }

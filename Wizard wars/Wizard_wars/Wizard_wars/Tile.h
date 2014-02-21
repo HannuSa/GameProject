@@ -1,6 +1,5 @@
 #ifndef Tile_H
 #define Tile_H
-#include <SFML\Graphics.hpp>
 
 enum TileType
 {
