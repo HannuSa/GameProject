@@ -14,14 +14,18 @@ public:
 	void update();
 	void MoveCreature();
 
+	void NewPos(sf::Vector2<float> N);
+	sf::Vector2<float> GetPos();
+
+	GameState *GetState();
 
 	TileType GetTileByPos(sf::Vector2<int> Pos);
 	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
 protected:
 	GameState *CurrentState;
 	TileMap tilemap;
-	std::vector<Creature*> Group1;
-	std::vector<Creature*> Group2;
+	sf::Vector2<float> DrawPos;
+	std::vector<Creature*> Creatures;
 public:
 	TileMap* getTilemap()
 	{
@@ -29,11 +33,7 @@ public:
 	}
 	std::vector<Creature*>* GetCreatures()
 	{
-		return &Group1;
-	}
-	std::vector<Creature*>* GetCreatures2()
-	{
-		return &Group2;
+		return &Creatures;
 	}
 };
 

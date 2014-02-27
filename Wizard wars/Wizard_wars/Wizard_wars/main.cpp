@@ -6,6 +6,7 @@
 #include "Creature.h"
 #include "Scene.h"
 #include "Render.h"
+#include "Input.h"
 
 int main()
 {
@@ -14,8 +15,10 @@ int main()
 	Scene scene(c);
 	scene.AddCreature(c1);
 	Render render(&scene);
+	Input input(&scene,render.GetWindow());
 	for(;;)
 	{
+		input.Update();
 		scene.update();
 		render.update();
 	}

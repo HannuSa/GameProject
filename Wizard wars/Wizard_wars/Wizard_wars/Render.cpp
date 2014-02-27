@@ -1,5 +1,5 @@
 #include "Render.h"
-
+#include <Windows.h>
 
 Render::Render(Scene *scene)
 	:scene(scene)
@@ -18,11 +18,15 @@ Render::~Render(void)
 {
 }
 
+sf::RenderWindow* Render::GetWindow()
+{
+	return &window;
+}
 
 void Render::update()
 {
 	window.clear();
-
+	Sleep(100);
 	for(int x = 0; x < TILEMAP_WIDTH; ++x)
 	{
 		for(int y = 0; y < TILEMAP_HEIGHT; ++y)
@@ -35,7 +39,7 @@ void Render::update()
 				printf("invalid tile type!");
 				break;
 			case TILE_GRASS:
-				sprite.setPosition(x*32,y*32);
+				sprite.setPosition(x*32+scene->GetPos().x,y*32+scene->GetPos().y);
 				window.draw(sprite);
 				break;
 			}
@@ -46,13 +50,15 @@ void Render::update()
 	{
 		if(Temp->at(i)->GetType()==1)
 		{	
-			Test1.setPosition(Temp->at(i)->GetPosition().x*32,Temp->at(i)->GetPosition().y*32);
+			Test1.setPosition(Temp->at(i)->GetPosition().x*32+scene->GetPos().x,
+				Temp->at(i)->GetPosition().y*32+scene->GetPos().y);
 			window.draw(Test1);
 		}
 
 		if(Temp->at(i)->GetType()==2)
 		{
-			Test2.setPosition(Temp->at(i)->GetPosition().x*32,Temp->at(i)->GetPosition().y*32);
+			Test2.setPosition(Temp->at(i)->GetPosition().x*32+scene->GetPos().x,
+				Temp->at(i)->GetPosition().y*32+scene->GetPos().y);
 			window.draw(Test2);
 		}
 

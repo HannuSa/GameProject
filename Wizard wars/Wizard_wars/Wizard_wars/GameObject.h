@@ -9,7 +9,10 @@ public:
 	virtual ~GameObject();
 	sf::Vector2<int> GetPosition();
 	void Move(sf::Vector2<int> newP);
+	bool GetSelected();
+	void SetSelected(bool s);
 protected:
 	sf::Vector2<int> Position;
+	bool Selected;
 };
 #endif

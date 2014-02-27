@@ -85,6 +85,7 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="PassiveState.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Scene.h" />

@@ -3,6 +3,7 @@
 GameObject::GameObject(sf::Vector2<int> pos)
 {
 	Position = pos;
+	Selected = false;
 }
 
 GameObject::~GameObject()
@@ -16,4 +17,14 @@ sf::Vector2<int> GameObject::GetPosition()
 void GameObject::Move(sf::Vector2<int> newP)
 {
 	Position = newP;
+}
+
+bool GameObject::GetSelected()
+{
+	return Selected;
+}
+
+void GameObject::SetSelected(bool s)
+{
+	Selected = s;
 }

@@ -5,8 +5,9 @@ Scene::Scene()
 
 Scene::Scene(Creature *c)
 {
-	Group1.push_back(c);
+	Creatures.push_back(c);
 	CurrentState = new GameState();
+	DrawPos = sf::Vector2<float>(0,0);
 }
 
 
@@ -17,18 +18,28 @@ Scene::~Scene(void)
 
 void Scene::AddCreature(Creature *c)
 {
-	if(c->GetType()==1)
-	{
-	 Group1.push_back(c);
-	}
-	else
-	{
-		Group2.push_back(c);
-	}
+	 Creatures.push_back(c);
+
+}
+
+sf::Vector2<float> Scene::GetPos()
+{
+	return DrawPos;
+}
+
+void Scene::NewPos(sf::Vector2<float> N)
+{
+	DrawPos = N;
+}
+
+GameState *Scene::GetState()
+{
+	return CurrentState;
 }
 
 void Scene::update()
 {
+	CurrentState->NewState(GROUP_1_TURN);
 	if(CurrentState->returnState() == GROUP_1_TURN)
 	{
 	}
@@ -40,7 +51,7 @@ void Scene::update()
 
 void Scene::MoveCreature()
 {
-	Group2[0]->Move(FindPath(Group1[0]->GetPosition(),Group1[0]->GetPosition()));
+	Creatures[1]->Move(FindPath(Creatures[1]->GetPosition(),Creatures[0]->GetPosition()));
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
@@ -74,9 +85,9 @@ for(int x = 0;x < TILEMAP_WIDTH;x++)
 		if(GetTileByPos(tempPos)==TILE_ROCK)
 		fillData[x][y] = BLOCK;
 
-		for(int i=0;i<Group1.size();i++)
+		for(int i=0;i<Creatures.size();i++)
 		{
-			if(Group1[i]->GetPosition()==tempPos)
+			if(Creatures[i]->GetPosition()==tempPos)
 			{
 			fillData[x][y] = BLOCK;
 			}
