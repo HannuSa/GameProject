@@ -16,12 +16,15 @@ void Input::Update()
 
 	if(scene->GetState()->returnState() == GROUP_1_TURN)
 	{
+		if(SetDestination()==true)
+		{
 		std::vector<Creature*>* Temp=scene->GetCreatures();
 		for(int i = 0; i < Temp->size();i++)
-		{
-			if(Temp->at(i)->Selected==true)
 			{
-				scene->MoveCreature(i);
+				if(Temp->at(i)->Selected==true)
+				{
+					Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
+				}
 			}
 		}
 	}
@@ -61,8 +64,12 @@ void Input::Select()
 		for(int i = 0; i < Temp->size();i++)
 		{
 			//Temp->at(i)->Selected=false;
-			if(sf::Mouse::getPosition(*window).x >= Temp->at(i)->GetPosition().x*32&&
-				sf::Mouse::getPosition(*window).y >= Temp->at(i)->GetPosition().y*32)
+			if(
+				Temp->at(i)->GetPosition().x*32 <=sf::Mouse::getPosition(*window).x &&
+				sf::Mouse::getPosition(*window).x <=Temp->at(i)->GetPosition().x*32+32 &&
+
+				Temp->at(i)->GetPosition().x*32 <=sf::Mouse::getPosition(*window).y &&
+				sf::Mouse::getPosition(*window).y <=Temp->at(i)->GetPosition().y*32+32 )
 			{
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)== true)
 				{
@@ -74,7 +81,25 @@ void Input::Select()
 	}
 }
 
+bool Input::SetDestination()
+{
+	std::vector<Creature*>* Temp=scene->GetCreatures();
+		for(int i = 0; i < Temp->size();i++)
+		{
+			if(Temp->at(i)->Selected==true)
+			{
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)==true)
+				{
+					Destination.x = sf::Mouse::getPosition(*window).x/32;
+					Destination.y = sf::Mouse::getPosition(*window).y/32;
+					return true;
+				}
+			}
+		}
+	return false;
+}
+
 void Input::Act()
 {
-
+	
 }

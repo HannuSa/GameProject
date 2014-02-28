@@ -13,9 +13,11 @@ public:
 	void Update();
 	void MoveMap();
 	void Select();
+	bool SetDestination();
 	void Act();
 private:
 	Scene *scene;
 	sf::RenderWindow *window;
+	sf::Vector2<int> Destination;
 };
 #endif
