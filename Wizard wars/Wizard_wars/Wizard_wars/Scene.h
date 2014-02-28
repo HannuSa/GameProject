@@ -12,11 +12,9 @@ public:
 	~Scene(void);
 	void AddCreature(Creature *c);
 	void update();
-	void MoveCreature();
+	void MoveCreature(int T);
 
-	void NewPos(sf::Vector2<float> N);
-	sf::Vector2<float> GetPos();
-
+	sf::Vector2<float> DrawPos;
 	GameState *GetState();
 
 	TileType GetTileByPos(sf::Vector2<int> Pos);
@@ -24,7 +22,6 @@ public:
 protected:
 	GameState *CurrentState;
 	TileMap tilemap;
-	sf::Vector2<float> DrawPos;
 	std::vector<Creature*> Creatures;
 public:
 	TileMap* getTilemap()

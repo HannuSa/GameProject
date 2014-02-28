@@ -8,6 +8,7 @@ Scene::Scene(Creature *c)
 	Creatures.push_back(c);
 	CurrentState = new GameState();
 	DrawPos = sf::Vector2<float>(0,0);
+	CurrentState->NewState(GROUP_1_TURN);
 }
 
 
@@ -22,16 +23,6 @@ void Scene::AddCreature(Creature *c)
 
 }
 
-sf::Vector2<float> Scene::GetPos()
-{
-	return DrawPos;
-}
-
-void Scene::NewPos(sf::Vector2<float> N)
-{
-	DrawPos = N;
-}
-
 GameState *Scene::GetState()
 {
 	return CurrentState;
@@ -39,19 +30,34 @@ GameState *Scene::GetState()
 
 void Scene::update()
 {
+	/*if(CurrentState->returnState() == GROUP_1_TURN)
+	{
+		CurrentState->NewState(GROUP_2_TURN);
+	}
+	else if(CurrentState->returnState() == GROUP_2_TURN)
+	{
+		CurrentState->NewState(GROUP_1_TURN);
+	}*/
 	CurrentState->NewState(GROUP_1_TURN);
+
 	if(CurrentState->returnState() == GROUP_1_TURN)
 	{
 	}
 	else if(CurrentState->returnState() == GROUP_2_TURN)
 	{
-		MoveCreature();
+		for(int i = 0; i < Creatures.size(); i++)
+		{
+			if(Creatures[i]->GetType()==2)
+			{
+				MoveCreature(i);
+			}
+		}
 	}
 }
 
-void Scene::MoveCreature()
+void Scene::MoveCreature(int T)
 {
-	Creatures[1]->Move(FindPath(Creatures[1]->GetPosition(),Creatures[0]->GetPosition()));
+	Creatures[T]->Move(FindPath(Creatures[T]->GetPosition(),sf::Vector2<int> (10,10)));
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)

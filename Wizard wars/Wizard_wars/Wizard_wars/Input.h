@@ -12,6 +12,8 @@ public:
 
 	void Update();
 	void MoveMap();
+	void Select();
+	void Act();
 private:
 	Scene *scene;
 	sf::RenderWindow *window;

@@ -18,13 +18,3 @@ void GameObject::Move(sf::Vector2<int> newP)
 {
 	Position = newP;
 }
-
-bool GameObject::GetSelected()
-{
-	return Selected;
-}
-
-void GameObject::SetSelected(bool s)
-{
-	Selected = s;
-}

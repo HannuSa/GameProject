@@ -39,7 +39,7 @@ void Render::update()
 				printf("invalid tile type!");
 				break;
 			case TILE_GRASS:
-				sprite.setPosition(x*32+scene->GetPos().x,y*32+scene->GetPos().y);
+				sprite.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
 				window.draw(sprite);
 				break;
 			}
@@ -50,15 +50,15 @@ void Render::update()
 	{
 		if(Temp->at(i)->GetType()==1)
 		{	
-			Test1.setPosition(Temp->at(i)->GetPosition().x*32+scene->GetPos().x,
-				Temp->at(i)->GetPosition().y*32+scene->GetPos().y);
+			Test1.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+				Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
 			window.draw(Test1);
 		}
 
 		if(Temp->at(i)->GetType()==2)
 		{
-			Test2.setPosition(Temp->at(i)->GetPosition().x*32+scene->GetPos().x,
-				Temp->at(i)->GetPosition().y*32+scene->GetPos().y);
+			Test2.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+				Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
 			window.draw(Test2);
 		}
 
