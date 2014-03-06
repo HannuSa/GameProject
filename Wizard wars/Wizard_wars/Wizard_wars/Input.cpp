@@ -13,20 +13,41 @@ void Input::Update()
 {
 	//MoveMap();
 	Select();
+	
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == true)
+	{
+		scene->GetState()->NewState(GROUP_2_TURN);
+	}
 
-	if(scene->GetState()->returnState() == GROUP_1_TURN)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == true)
+	{
+		scene->GetState()->NewState(GROUP_1_TURN);
+	}
+
+
+	if(scene->GetState()->returnState() == GROUP_1_TURN && scene->CheckTurnEnd() == false)
 	{
 		if(SetDestination()==true)
 		{
-		std::vector<Creature*>* Temp=scene->GetCreatures();
-		for(int i = 0; i < Temp->size();i++)
+			std::vector<Wizard*>* Temp=scene->GetWizards();
+			for(int i = 0; i < Temp->size();i++)
 			{
-				if(Temp->at(i)->Selected==true)
+				if(Temp->at(i)->Selected==true &&Temp->at(i)->AP>0)
 				{
 					Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
+					Temp->at(i)->AP-=1;
 				}
 			}
 		}
+	}
+	else if(scene->GetState()->returnState() == GROUP_1_TURN && scene->CheckTurnEnd() == true)
+	{
+		for(int i = 0; i<scene->GetWizards()->size();i++)
+		{
+			scene->GetWizards()->at(i)->AP+=7;
+		}
+
+		scene->GetState()->NewState(GROUP_2_TURN);
 	}
 }
 
@@ -58,18 +79,18 @@ if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) == true)
 
 void Input::Select()
 {
-	std::vector<Creature*>* Temp=scene->GetCreatures();
+	std::vector<Wizard*>* Temp=scene->GetWizards();
 	if(scene->GetState()->returnState() == GROUP_1_TURN)
 	{
 		for(int i = 0; i < Temp->size();i++)
 		{
 			//Temp->at(i)->Selected=false;
 			if(
-				Temp->at(i)->GetPosition().x*32 <=sf::Mouse::getPosition(*window).x &&
-				sf::Mouse::getPosition(*window).x <=Temp->at(i)->GetPosition().x*32+32 &&
+				Temp->at(i)->GetPosition().x*32 <= sf::Mouse::getPosition(*window).x &&
+				sf::Mouse::getPosition(*window).x <= Temp->at(i)->GetPosition().x*32+32 &&
 
-				Temp->at(i)->GetPosition().x*32 <=sf::Mouse::getPosition(*window).y &&
-				sf::Mouse::getPosition(*window).y <=Temp->at(i)->GetPosition().y*32+32 )
+				Temp->at(i)->GetPosition().x*32 <= sf::Mouse::getPosition(*window).y &&
+				sf::Mouse::getPosition(*window).y <= Temp->at(i)->GetPosition().y*32+32 )
 			{
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)== true)
 				{
@@ -83,7 +104,7 @@ void Input::Select()
 
 bool Input::SetDestination()
 {
-	std::vector<Creature*>* Temp=scene->GetCreatures();
+	std::vector<Wizard*>* Temp=scene->GetWizards();
 		for(int i = 0; i < Temp->size();i++)
 		{
 			if(Temp->at(i)->Selected==true)

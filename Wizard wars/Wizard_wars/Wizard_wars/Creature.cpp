@@ -19,16 +19,3 @@ int Creature::GetType()
 {
 	return type;
 }
-
-int Creature::GetAP()
-{
-	return AP;
-}
-
-void Creature::UseAP(int A)
-{
-	if(A <= AP)
-	{
-		AP -= A;
-	}
-}

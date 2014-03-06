@@ -11,14 +11,12 @@ public:
 	Creature(sf::Vector2<int> pos,int t,int hp,int dam);
 	~Creature();
 	int GetType();
-	int GetAP();
-	void UseAP(int A);
-private:
+	ActionState action;
+	Status status;
 	int type;
 	int AP;
 	int MaxHp,CurHp;
 	int startDam,CurDam;
-	ActionState action;
-	Status status;
+private:
 };
 #endif

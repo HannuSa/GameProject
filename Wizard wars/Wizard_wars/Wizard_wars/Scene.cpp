@@ -1,11 +1,12 @@
 #include "Scene.h"
+#include <cmath>
 
 Scene::Scene()
 {}
 
-Scene::Scene(Creature *c)
+Scene::Scene(Wizard *w)
 {
-	Creatures.push_back(c);
+	Wizards.push_back(w);
 	CurrentState = new GameState();
 	DrawPos = sf::Vector2<float>(0,0);
 	CurrentState->NewState(GROUP_1_TURN);
@@ -23,46 +24,109 @@ void Scene::AddCreature(Creature *c)
 
 }
 
-GameState *Scene::GetState()
+GameState* Scene::GetState()
 {
 	return CurrentState;
 }
 
+
 void Scene::update()
 {
-	/*if(CurrentState->returnState() == GROUP_1_TURN)
-	{
-		CurrentState->NewState(GROUP_2_TURN);
-	}
-	else if(CurrentState->returnState() == GROUP_2_TURN)
-	{
-		CurrentState->NewState(GROUP_1_TURN);
-	}*/
-	CurrentState->NewState(GROUP_1_TURN);
 
-	if(CurrentState->returnState() == GROUP_1_TURN)
+	if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == false)
 	{
-	}
-	else if(CurrentState->returnState() == GROUP_2_TURN)
-	{
-		for(int i = 0; i < Creatures.size(); i++)
+		if(CheckTurnEnd()==false)
 		{
-			if(Creatures[i]->GetType()==2)
+			for(int i = 0; i < Creatures.size(); i++)
 			{
-				MoveCreature(i);
+				if(Creatures[i]->CurHp<=0)
+				{
+					Creatures[i]->status=DEAD;
+				}
+
+				if(Creatures[i]->GetType()==2)
+				{
+					if(Creatures[i]->AP>0)
+					{
+						if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1)
+						{
+							MoveCreature(i);
+							Creatures[i]->AP-=1;
+						}
+						else
+						{
+							Attack(Creatures[i],Wizards[0]);
+							Creatures[i]->AP-=1;
+						}
+					}
+				}
 			}
 		}
 	}
+	else if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == true)
+		{
+			for(int i = 0; i<Creatures.size();i++)
+			{
+				Creatures[i]->AP+=7;
+			}
+			CurrentState->NewState(GROUP_1_TURN);
+		}
 }
 
 void Scene::MoveCreature(int T)
 {
-	Creatures[T]->Move(FindPath(Creatures[T]->GetPosition(),sf::Vector2<int> (10,10)));
+	Creatures[T]->Move(FindPath(Creatures[T]->GetPosition(),GetTargetPos()));
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
 {
 	return tilemap.tiles[Pos.x][Pos.y];
+}
+
+
+sf::Vector2<int> Scene::GetTargetPos()
+{
+	sf::Vector2<int> FinalPos(Wizards.at(0)->GetPosition());
+	return FinalPos;
+}
+
+double Scene::GetDistance(sf::Vector2<int> Target, sf::Vector2<int> Begin)
+{
+	double result = std::sqrt(((float)Target.x-Begin.x)*(Target.x-Begin.x)+(Target.y-Begin.y)*(Target.y-Begin.y));
+	return result;
+}
+
+void Scene::Attack(Creature* Attacker, Wizard* Target)
+{
+	Target->CurHp-=Attacker->CurDam;
+}
+
+bool Scene::CheckTurnEnd()
+{
+	bool TurnEnd = false;
+	if(CurrentState->returnState() == GROUP_1_TURN)
+	{
+		for(int i = 0; i < Wizards.size(); i++)
+			{
+				if (Wizards[i]->AP != 0)
+				{
+					return TurnEnd;
+				}
+			}
+	}
+
+	else if(CurrentState->returnState() == GROUP_2_TURN)
+	{
+		for(int i = 0; i < Creatures.size(); i++)
+		{
+			if (Creatures[i]->AP != 0)
+			{
+				return TurnEnd;
+			}
+		}
+	}
+	 TurnEnd=true;
+	 return TurnEnd;
 }
 
 sf::Vector2<int> Scene::FindPath(sf::Vector2<int> Start,sf::Vector2<int> End)

@@ -46,14 +46,31 @@ void Render::update()
 		}
 	}
 	std::vector<Creature*>* Temp=scene->GetCreatures();
+	std::vector<Wizard*>* Temp2=scene->GetWizards();
+
+	for(int i=0;i<Temp2->size();i++)
+	{
+		Test1.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+				Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
+			{
+				Test1.setColor(sf::Color(255,0,0));
+			}
+			window.draw(Test1);
+	}
+
 	for(int i=0;i<Temp->size();i++)
 	{
-		if(Temp->at(i)->GetType()==1)
-		{	
-			Test1.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
-				Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
-			window.draw(Test1);
-		}
+		///*if(Temp->at(i)->GetType()==1)
+		//{	
+		//	Test1.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+		//		Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+		//	if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+		//	{
+		//		Test1.setColor(sf::Color(255,0,0));
+		//	}
+		//	window.draw(Test1);*/
+		//}
 
 		if(Temp->at(i)->GetType()==2)
 		{
