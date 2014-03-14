@@ -32,12 +32,12 @@ GameState* Scene::GetState()
 
 void Scene::update()
 {
-
 	if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == false)
 	{
-		if(CheckTurnEnd()==false)
+		Creatures[0]->acting=true;
+		for(int i = 0; i < Creatures.size(); i++)
 		{
-			for(int i = 0; i < Creatures.size(); i++)
+			if(Creatures[i]->acting==true)
 			{
 				if(Creatures[i]->CurHp<=0)
 				{
@@ -48,7 +48,7 @@ void Scene::update()
 				{
 					if(Creatures[i]->AP>0)
 					{
-						if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1)
+						if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1,9)
 						{
 							MoveCreature(i);
 							Creatures[i]->AP-=1;
@@ -59,6 +59,11 @@ void Scene::update()
 							Creatures[i]->AP-=1;
 						}
 					}
+					else
+					{
+						Creatures[i]->acting=false;
+						Creatures[i+1]->acting=true;
+					}
 				}
 			}
 		}
@@ -67,7 +72,8 @@ void Scene::update()
 		{
 			for(int i = 0; i<Creatures.size();i++)
 			{
-				Creatures[i]->AP+=7;
+				Creatures[i]->AP+=Creatures[i]->APMax;
+				Creatures[i]->acting=false;
 			}
 			CurrentState->NewState(GROUP_1_TURN);
 		}
@@ -133,7 +139,6 @@ sf::Vector2<int> Scene::FindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
 {
 #define NODATA -1
 #define BLOCK -2
-	End.x += 1;
 
 	sf::Vector2<int> positionPatch;
 	positionPatch.x = 0;

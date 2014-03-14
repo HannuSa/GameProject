@@ -101,6 +101,7 @@
     <ClInclude Include="PassiveState.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Spell.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Wizard.h" />

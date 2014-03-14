@@ -26,6 +26,5 @@ int main()
 		scene.update();
 		render.update();
 	}
-
     return 0;
 }

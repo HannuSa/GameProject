@@ -77,5 +77,8 @@
     <ClInclude Include="Wizard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Spell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

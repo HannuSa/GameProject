@@ -32,19 +32,24 @@ void Input::Update()
 			std::vector<Wizard*>* Temp=scene->GetWizards();
 			for(int i = 0; i < Temp->size();i++)
 			{
-				if(Temp->at(i)->Selected==true &&Temp->at(i)->AP>0)
+				if(Temp->at(i)->GetPosition() !=Destination)
 				{
-					Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
-					Temp->at(i)->AP-=1;
+					if(Temp->at(i)->Selected==true && Temp->at(i)->AP>0)
+					{
+						Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
+						Temp->at(i)->AP-=1;
+					}
 				}
 			}
 		}
 	}
+
 	else if(scene->GetState()->returnState() == GROUP_1_TURN && scene->CheckTurnEnd() == true)
 	{
 		for(int i = 0; i<scene->GetWizards()->size();i++)
 		{
-			scene->GetWizards()->at(i)->AP+=7;
+			scene->GetWizards()->at(i)->AP+=scene->GetWizards()->at(i)->APMax;
+			scene->GetWizards()->at(i)->moving=false;
 		}
 
 		scene->GetState()->NewState(GROUP_2_TURN);
@@ -95,7 +100,7 @@ void Input::Select()
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)== true)
 				{
 					Temp->at(i)->Selected=true;
-					break;
+					//break;
 				}
 			}
 		}
@@ -109,10 +114,17 @@ bool Input::SetDestination()
 		{
 			if(Temp->at(i)->Selected==true)
 			{
-				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)==true)
+
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)==true)
 				{
 					Destination.x = sf::Mouse::getPosition(*window).x/32;
 					Destination.y = sf::Mouse::getPosition(*window).y/32;
+					Temp->at(i)->moving=true;
+					return true;
+				}
+
+				if(Temp->at(i)->moving==true)
+				{
 					return true;
 				}
 			}

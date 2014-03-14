@@ -15,8 +15,10 @@ public:
 	Status status;
 	int type;
 	int AP;
+	int APMax;
 	int MaxHp,CurHp;
 	int startDam,CurDam;
+	bool acting;
 private:
 };
 #endif

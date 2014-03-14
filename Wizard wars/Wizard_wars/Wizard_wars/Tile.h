@@ -8,5 +8,4 @@ enum TileType
 	TILE_ROCK,
 	TILE_FLOOR,
 };
-
 #endif
