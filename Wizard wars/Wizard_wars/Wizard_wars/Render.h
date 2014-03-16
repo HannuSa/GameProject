@@ -20,6 +20,11 @@ private:
 	sf::Sprite sprite;
 	sf::Sprite Test1;
 	sf::Sprite Test2;
+
+	sf::Font font;
+	sf::Text text;
+
+	sf::RectangleShape SpellList;
 };
 
 #endif

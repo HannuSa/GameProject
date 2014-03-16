@@ -14,3 +14,8 @@ Wizard::Wizard(sf::Vector2<int> pos,int hp,int dam):GameObject(pos)
 
 Wizard::~Wizard()
 {}
+
+void Wizard::AddSpell(Spell s)
+{
+	Spells.push_back(s);
+}

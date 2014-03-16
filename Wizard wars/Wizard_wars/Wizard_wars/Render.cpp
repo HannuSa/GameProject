@@ -4,13 +4,20 @@
 Render::Render(Scene *scene)
 	:scene(scene)
 {
-	window.create(sf::VideoMode(800,600),"Wizard wars");
+	window.create(sf::VideoMode(1000,600),"Wizard wars");
 	Grass.loadFromFile("../Resources/Ruoho.png");
 	sprite.setTexture(Grass);
 	Test.loadFromFile("../Resources/Guy.png");
 	Test1.setTexture(Test);
 	goblin.loadFromFile("../Resources/Goblin.png");
 	Test2.setTexture(goblin);
+	font.loadFromFile("../Resources/firstv2.ttf");
+	text.setFont(font);
+	text.setColor(sf::Color::Red);
+
+	SpellList.setSize(sf::Vector2f(200,600));
+	SpellList.setPosition(800,0);
+	SpellList.setFillColor(sf::Color(150,75,0));
 }
 
 
@@ -80,6 +87,21 @@ void Render::update()
 		}
 
 	}
+
+	if(scene->GetState()->returnState() == GROUP_1_TURN)
+	{
+		for(int i = 0; i<scene->GetWizards()->at(0)->Spells.size();i++)
+		{
+			if(scene->GetWizards()->at(0)->Spells[i]==MAGIC_MISSILE)
+			{
+				text.setString("Magic Missile");
+			}
+			text.setPosition(800,0);
+		}
+		window.draw(SpellList);
+		window.draw(text);
+	}
+
 			 window.display();
 			 if (window.isOpen())
 			{
