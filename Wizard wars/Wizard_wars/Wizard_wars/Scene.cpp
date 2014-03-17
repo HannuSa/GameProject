@@ -135,6 +135,7 @@ bool Scene::CheckTurnEnd()
 	 return TurnEnd;
 }
 
+
 sf::Vector2<int> Scene::FindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
 {
 #define NODATA -1

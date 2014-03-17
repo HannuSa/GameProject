@@ -33,7 +33,7 @@ sf::RenderWindow* Render::GetWindow()
 void Render::update()
 {
 	window.clear();
-	Sleep(100);
+	//Sleep(100);
 	for(int x = 0; x < TILEMAP_WIDTH; ++x)
 	{
 		for(int y = 0; y < TILEMAP_HEIGHT; ++y)
@@ -90,16 +90,22 @@ void Render::update()
 
 	if(scene->GetState()->returnState() == GROUP_1_TURN)
 	{
-		for(int i = 0; i<scene->GetWizards()->at(0)->Spells.size();i++)
-		{
-			if(scene->GetWizards()->at(0)->Spells[i]==MAGIC_MISSILE)
-			{
-				text.setString("Magic Missile");
-			}
-			text.setPosition(800,0);
-		}
 		window.draw(SpellList);
-		window.draw(text);
+		for(int i = 0; i < Temp2->size(); i++)
+		{
+			if(Temp2->at(i)->Selected==true)
+				{
+				for(int x = 0; x<Temp2->at(i)->Spells.size();x++)
+				{
+					if(scene->GetWizards()->at(i)->Spells[x]==MAGIC_MISSILE)
+					{
+						text.setString("Magic Missile");
+					}
+					text.setPosition(810,0);
+					window.draw(text);				
+				}
+			}
+		}
 	}
 
 			 window.display();

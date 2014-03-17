@@ -16,6 +16,16 @@ int main()
 	Creature *c2 = new Creature(sf::Vector2<int>(2,2),2,4,2);
 
 	Scene scene(w);
+
+	for(int x = 10 ; x > 0; --x){
+		for (int y = 10; y > 0; --y){
+			Creature *sdfg = new Creature(sf::Vector2<int>(x,y),2,4,2);
+			scene.AddCreature(sdfg);
+		}
+	}
+	
+
+
 	scene.AddCreature(c1);
 	scene.AddCreature(c2);
 	Render render(&scene);

@@ -26,6 +26,7 @@ public:
 	void Attack(Creature* Attacker, Wizard* Target);
 	
 	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
+
 protected:
 	GameState *CurrentState;
 	TileMap tilemap;
