@@ -15,6 +15,7 @@ public:
 	void Select();
 	bool SetDestination();
 	void Act();
+	bool ManaCheck();
 private:
 	Scene *scene;
 	sf::RenderWindow *window;

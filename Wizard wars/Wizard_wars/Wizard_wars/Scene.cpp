@@ -135,6 +135,30 @@ bool Scene::CheckTurnEnd()
 	 return TurnEnd;
 }
 
+Target* Scene::GetCreatureByPos(sf::Vector2<int> P)
+{
+	Target t;
+	t.C = NULL;
+	t.W = NULL;
+
+	for(int i = 0; i<Creatures.size();i++)
+	{
+		if(Creatures[i]->GetPosition() == P)
+		{
+			t.C = Creatures[i];
+		}
+	}
+
+	for(int i = 0; i<Wizards.size(); i++)
+	{
+		if(Wizards[i]->GetPosition() == P)
+		{
+			t.W = Wizards[i];
+		}
+	}
+	return &t;
+}
+
 
 sf::Vector2<int> Scene::FindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
 {

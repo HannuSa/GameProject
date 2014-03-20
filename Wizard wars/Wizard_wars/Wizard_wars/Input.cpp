@@ -132,6 +132,11 @@ bool Input::SetDestination()
 	return false;
 }
 
+bool Input::ManaCheck()
+{
+
+}
+
 void Input::Act()
 {
 	
