@@ -3,6 +3,7 @@
 #include "scene.h"
 #include <SFML/Graphics.hpp>
 
+
 class Render :public Scene
 {
 public:
@@ -23,8 +24,8 @@ private:
 
 	sf::Font font;
 	sf::Text text;
+	sf::Text ActionPoints;
 
 	sf::RectangleShape SpellList;
 };
-
 #endif

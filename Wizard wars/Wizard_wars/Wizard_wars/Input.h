@@ -15,7 +15,7 @@ public:
 	void Select();
 	bool SetDestination();
 	void SelectSpell();
-	void CastSpell(Wizard w,Spell s);
+	void CastSpell(Wizard *w,Spell s);
 private:
 	Scene *scene;
 	sf::RenderWindow *window;

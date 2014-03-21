@@ -32,16 +32,28 @@ GameState* Scene::GetState()
 
 void Scene::update()
 {
+	for(int i = 0; i < Wizards.size(); i++)
+	{
+		if(Wizards[i]->CurHp<=0)
+		{
+			Wizards[i]->status=DEAD;
+			Wizards[i]->AP=0;
+		}
+	}
+	for(int i = 0; i < Creatures.size(); i++)
+	{
+	if(Creatures[i]->CurHp<=0)
+				{
+					Creatures[i]->status=DEAD;
+					Creatures[i]->AP=0;
+				}
+	}
+
 	if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == false)
 	{
 		Creatures[0]->acting=true;
 		for(int i = 0; i < Creatures.size(); i++)
 		{
-			if(Creatures[i]->CurHp<=0)
-				{
-					Creatures[i]->status=DEAD;
-					Creatures[i]->AP=0;
-				}
 			if(Creatures[i]->status!=DEAD)
 			{
 				if(Creatures[i]->acting==true)
@@ -51,7 +63,7 @@ void Scene::update()
 					{
 						if(Creatures[i]->AP>0)
 						{
-							if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1,9)
+							if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1)
 							{
 								MoveCreature(i);
 								Creatures[i]->AP-=1;

@@ -1,5 +1,8 @@
 #include "Render.h"
 #include <Windows.h>
+#include <string>
+#include <sstream>
+
 
 Render::Render(Scene *scene)
 	:scene(scene)
@@ -14,6 +17,10 @@ Render::Render(Scene *scene)
 	font.loadFromFile("../Resources/firstv2.ttf");
 	text.setFont(font);
 	text.setColor(sf::Color::Red);
+
+	ActionPoints.setFont(font);
+	ActionPoints.setColor(sf::Color::Red);
+	ActionPoints.setPosition(810,550);
 
 	SpellList.setSize(sf::Vector2f(200,600));
 	SpellList.setPosition(800,0);
@@ -33,7 +40,7 @@ sf::RenderWindow* Render::GetWindow()
 void Render::update()
 {
 	window.clear();
-	//Sleep(100);
+	Sleep(100);
 	for(int x = 0; x < TILEMAP_WIDTH; ++x)
 	{
 		for(int y = 0; y < TILEMAP_HEIGHT; ++y)
@@ -68,16 +75,6 @@ void Render::update()
 
 	for(int i=0;i<Temp->size();i++)
 	{
-		///*if(Temp->at(i)->GetType()==1)
-		//{	
-		//	Test1.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
-		//		Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
-		//	if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
-		//	{
-		//		Test1.setColor(sf::Color(255,0,0));
-		//	}
-		//	window.draw(Test1);*/
-		//}
 
 		if(Temp->at(i)->GetType()==2)
 		{
@@ -106,7 +103,12 @@ void Render::update()
 						text.setString("Magic Missile");
 					}
 					text.setPosition(810,0);
-					window.draw(text);				
+
+					std::stringstream ss;
+					ss<<scene->GetWizards()->at(i)->AP;
+					ActionPoints.setString(ss.str());
+					window.draw(text);		
+					window.draw(ActionPoints);
 				}
 			}
 		}
