@@ -83,6 +83,10 @@ void Render::update()
 		{
 			Test2.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
 				Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Test2.setColor(sf::Color(255,0,0));
+			}
 			window.draw(Test2);
 		}
 
@@ -97,7 +101,7 @@ void Render::update()
 				{
 				for(int x = 0; x<Temp2->at(i)->Spells.size();x++)
 				{
-					if(scene->GetWizards()->at(i)->Spells[x]==MAGIC_MISSILE)
+					if(scene->GetWizards()->at(i)->Spells[x].type==MAGIC_MISSILE)
 					{
 						text.setString("Magic Missile");
 					}

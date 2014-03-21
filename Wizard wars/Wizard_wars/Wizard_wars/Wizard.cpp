@@ -9,7 +9,7 @@ Wizard::Wizard(sf::Vector2<int> pos,int hp,int dam):GameObject(pos)
 	AP = 10;
 	APMax = 10;
 	status = ALIVE;
-	Spells.push_back(MAGIC_MISSILE);
+	Spells.push_back(Spell(MAGIC_MISSILE));
 }
 
 Wizard::~Wizard()
@@ -17,5 +17,5 @@ Wizard::~Wizard()
 
 void Wizard::AddSpell(Spell s)
 {
-	Spells.push_back(s);
+	Spells.push_back(Spell(s));
 }

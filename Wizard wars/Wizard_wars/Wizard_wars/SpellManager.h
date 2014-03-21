@@ -6,7 +6,5 @@ class SpellManager
 public:
 	SpellManager();
 	~SpellManager();
-	int CheckCost(Spell s);
-	int CheckDamage(Spell S);
 };
 #endif

@@ -89,6 +89,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SpellManager.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Wizard.cpp" />

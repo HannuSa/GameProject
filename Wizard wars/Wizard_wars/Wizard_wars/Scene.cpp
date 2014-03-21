@@ -37,32 +37,36 @@ void Scene::update()
 		Creatures[0]->acting=true;
 		for(int i = 0; i < Creatures.size(); i++)
 		{
-			if(Creatures[i]->acting==true)
-			{
-				if(Creatures[i]->CurHp<=0)
+			if(Creatures[i]->CurHp<=0)
 				{
 					Creatures[i]->status=DEAD;
+					Creatures[i]->AP=0;
 				}
-
-				if(Creatures[i]->GetType()==2)
+			if(Creatures[i]->status!=DEAD)
+			{
+				if(Creatures[i]->acting==true)
 				{
-					if(Creatures[i]->AP>0)
+
+					if(Creatures[i]->GetType()==2)
 					{
-						if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1,9)
+						if(Creatures[i]->AP>0)
 						{
-							MoveCreature(i);
-							Creatures[i]->AP-=1;
+							if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1,9)
+							{
+								MoveCreature(i);
+								Creatures[i]->AP-=1;
+							}
+							else
+							{
+								Attack(Creatures[i],Wizards[0]);
+								Creatures[i]->AP-=1;
+							}
 						}
 						else
 						{
-							Attack(Creatures[i],Wizards[0]);
-							Creatures[i]->AP-=1;
+							Creatures[i]->acting=false;
+							Creatures[i+1]->acting=true;
 						}
-					}
-					else
-					{
-						Creatures[i]->acting=false;
-						Creatures[i+1]->acting=true;
 					}
 				}
 			}
@@ -72,8 +76,11 @@ void Scene::update()
 		{
 			for(int i = 0; i<Creatures.size();i++)
 			{
+				if(Creatures[i]->status != DEAD)
+				{
 				Creatures[i]->AP+=Creatures[i]->APMax;
 				Creatures[i]->acting=false;
+				}
 			}
 			CurrentState->NewState(GROUP_1_TURN);
 		}

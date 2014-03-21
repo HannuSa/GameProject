@@ -14,8 +14,8 @@ public:
 	void MoveMap();
 	void Select();
 	bool SetDestination();
-	void Act();
-	bool ManaCheck();
+	void SelectSpell();
+	void CastSpell(Wizard w,Spell s);
 private:
 	Scene *scene;
 	sf::RenderWindow *window;

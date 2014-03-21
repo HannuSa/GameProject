@@ -28,16 +28,24 @@ void Input::Update()
 
 	if(scene->GetState()->returnState() == GROUP_1_TURN && scene->CheckTurnEnd() == false)
 	{
+		SelectSpell();
 		if(SetDestination()==true)
 		{
 			for(int i = 0; i < Temp->size();i++)
 			{
-				if(Temp->at(i)->GetPosition() !=Destination)
+				if(Temp->at(i)->AP>0)
 				{
-					if(Temp->at(i)->Selected==true && Temp->at(i)->AP>0)
+					if(Temp->at(i)->GetPosition() !=Destination)
 					{
-						Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
-						Temp->at(i)->AP-=1;
+						if(Temp->at(i)->Selected==true)
+						{
+							Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
+							Temp->at(i)->AP-=1;
+						}
+					}
+					if(Temp->at(i)->Selected==true && Temp->at(i)->Spells[0].Selected==true)
+					{
+						CastSpell(*Temp->at(i),Temp->at(i)->Spells[0]);
 					}
 				}
 			}
@@ -49,6 +57,7 @@ void Input::Update()
 		for(int i = 0; i<scene->GetWizards()->size();i++)
 		{
 			Temp->at(i)->AP+=scene->GetWizards()->at(i)->APMax;
+			Temp->at(i)->Spells[0].Selected=false;
 			Temp->at(i)->moving=false;
 		}
 
@@ -132,12 +141,41 @@ bool Input::SetDestination()
 	return false;
 }
 
-bool Input::ManaCheck()
+void Input::SelectSpell()
 {
-
+	std::vector<Wizard*>* Temp=scene->GetWizards();
+	for(int i = 0; i < Temp->size();i++)
+		{
+			if(Temp->at(i)->Selected==true)
+			{
+				if(Temp->at(i)->Spells[0].type == MAGIC_MISSILE && sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+				{
+					if(Temp->at(i)->AP >= Temp->at(i)->Spells[0].Cost)
+					{
+						Temp->at(i)->Spells[0].Selected=true;
+					}
+					else 
+					{
+						printf("Not enough actionpoints");
+					}
+				}
+			}
+		}
 }
 
-void Input::Act()
+void Input::CastSpell(Wizard w,Spell s)
 {
-	
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+		{
+			scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C->CurHp =- s.Damage;
+			w.AP -= s.Cost;
+		}
+		else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+		{
+			scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W->CurHp =- s.Damage;
+			w.AP -= s.Cost;
+		}
+	}
 }
