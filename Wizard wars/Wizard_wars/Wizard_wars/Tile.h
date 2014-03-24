@@ -7,5 +7,6 @@ enum TileType
 	TILE_GRASS,
 	TILE_ROCK,
 	TILE_FLOOR,
+	TILE_FIRE,
 };
 #endif

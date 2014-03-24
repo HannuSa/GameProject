@@ -18,9 +18,12 @@ private:
 	sf::Texture Grass;
 	sf::Texture Test;
 	sf::Texture goblin;
+	sf::Texture fire;
+
 	sf::Sprite sprite;
 	sf::Sprite Test1;
 	sf::Sprite Test2;
+	sf::Sprite fire2;
 
 	sf::Font font;
 	sf::Text text;

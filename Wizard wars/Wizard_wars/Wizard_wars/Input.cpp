@@ -41,6 +41,7 @@ void Input::Update()
 						{
 							Temp->at(i)->Move(scene->FindPath(Temp->at(i)->GetPosition(),Destination));
 							Temp->at(i)->AP-=1;
+							
 						}
 					}
 					if(Temp->at(i)->Selected==true && Temp->at(i)->Spells[0].Selected==true)
@@ -150,7 +151,7 @@ void Input::SelectSpell()
 		{
 			if(Temp->at(i)->Selected==true)
 			{
-				if(Temp->at(i)->Spells[0].type == MAGIC_MISSILE && sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+				if(Temp->at(i)->Spells[0].type == FIREBALL/*MAGIC_MISSILE*/ && sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 				{
 					if(Temp->at(i)->AP >= Temp->at(i)->Spells[0].Cost)
 					{
@@ -167,17 +168,78 @@ void Input::SelectSpell()
 
 void Input::CastSpell(Wizard *w,Spell s)
 {
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	if(s.type == MAGIC_MISSILE)
 	{
-		if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C->CurHp =- s.Damage;
-			w->AP -= s.Cost;
+			if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+			{
+				scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C->CurHp -= s.Damage;
+				w->AP -= s.Cost;
+			}
+			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+			{
+				scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W->CurHp =- s.Damage;
+				w->AP -= s.Cost;
+			}
 		}
-		else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+	}
+
+	else if(s.type == FIREBALL)
+	{
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W->CurHp =- s.Damage;
-			w->AP -= s.Cost;
+			if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+			{
+				Creature *c = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C;
+				c->CurHp =- s.Damage;
+				scene->getTilemap()->tiles[c->GetPosition().x][c->GetPosition().y]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x+1][c->GetPosition().y]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x+1][c->GetPosition().y+1]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x][c->GetPosition().y+1]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x-1][c->GetPosition().y]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x-1][c->GetPosition().y-1]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x][c->GetPosition().y-1]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x+1][c->GetPosition().y-1]=TILE_FIRE;
+				scene->getTilemap()->tiles[c->GetPosition().x-1][c->GetPosition().y+1]=TILE_FIRE;
+				w->AP -= s.Cost;
+			}
+			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+			{
+				Wizard *w2 = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W;
+				w2->CurHp =- s.Damage;
+				scene->getTilemap()->tiles[w2->GetPosition().x][w2->GetPosition().y]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x+1][w2->GetPosition().y]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x+1][w2->GetPosition().y+1]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x][w2->GetPosition().y+1]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x-1][w2->GetPosition().y]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x-1][w2->GetPosition().y-1]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x][w2->GetPosition().y-1]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x+1][w2->GetPosition().y-1]=TILE_FIRE;
+				scene->getTilemap()->tiles[w2->GetPosition().x-1][w2->GetPosition().y+1]=TILE_FIRE;
+				w->AP -= s.Cost;
+			}
+		}
+	}
+
+	else if(s.type == ICE_BOLT)
+	{
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+			{
+				Creature *c = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C;
+				c->CurHp =- s.Damage;
+				c->status = FROZEN;
+				w->AP -= s.Cost;
+			}
+			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+			{
+				Wizard *w2 = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W;
+				w2->CurHp =- s.Damage;
+				w2->status = FROZEN;
+				w->AP -= s.Cost;
+			}
 		}
 	}
 }

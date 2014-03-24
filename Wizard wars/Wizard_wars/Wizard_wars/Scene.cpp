@@ -133,7 +133,7 @@ bool Scene::CheckTurnEnd()
 	{
 		for(int i = 0; i < Wizards.size(); i++)
 			{
-				if (Wizards[i]->AP != 0)
+				if (Wizards[i]->AP > 0)
 				{
 					return TurnEnd;
 				}
@@ -144,7 +144,7 @@ bool Scene::CheckTurnEnd()
 	{
 		for(int i = 0; i < Creatures.size(); i++)
 		{
-			if (Creatures[i]->AP != 0)
+			if (Creatures[i]->AP > 0)
 			{
 				return TurnEnd;
 			}

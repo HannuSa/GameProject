@@ -12,6 +12,17 @@ Spell::Spell(Type t)
 		Cost = 2;
 		Damage = 4;
 	}
+	else if(type == FIREBALL)
+	{
+		Cost = 4;
+		Damage = 8;
+	}
+	else if(type == ICE_BOLT)
+	{
+		Cost = 3;
+		Damage = 2;
+	}
+
 }
 
 Spell::~Spell()

@@ -14,6 +14,8 @@ Render::Render(Scene *scene)
 	Test1.setTexture(Test);
 	goblin.loadFromFile("../Resources/Goblin.png");
 	Test2.setTexture(goblin);
+	fire.loadFromFile("../Resources/RuohoFire.png");
+	fire2.setTexture(fire);
 	font.loadFromFile("../Resources/firstv2.ttf");
 	text.setFont(font);
 	text.setColor(sf::Color::Red);
@@ -56,6 +58,10 @@ void Render::update()
 				sprite.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
 				window.draw(sprite);
 				break;
+			case TILE_FIRE:
+				fire2.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
+				window.draw(fire2);
+				break;
 			}
 		}
 	}
@@ -69,6 +75,14 @@ void Render::update()
 			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
 			{
 				Test1.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp2->at(i)->status == FROZEN)
+			{
+				Test1.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Test1.setColor(sf::Color(0, 0, 0));
 			}
 			window.draw(Test1);
 	}
@@ -84,6 +98,15 @@ void Render::update()
 			{
 				Test2.setColor(sf::Color(255,0,0));
 			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Test2.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Test2.setColor(sf::Color(0, 0, 0));
+			}
+
 			window.draw(Test2);
 		}
 
@@ -100,14 +123,30 @@ void Render::update()
 				{
 					if(scene->GetWizards()->at(i)->Spells[x].type==MAGIC_MISSILE)
 					{
+						text.setString("M)Magic Missile");
+						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
+						{
 						text.setString("Magic Missile");
+						}
+						text.setPosition(810,0);
+						window.draw(text);
 					}
-					text.setPosition(810,0);
+
+					if(scene->GetWizards()->at(i)->Spells[x].type==FIREBALL)
+					{
+						text.setString("M)Fireball");
+						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
+						{
+						text.setString("Fireball");
+						}
+						text.setPosition(810,0);
+						window.draw(text);
+					}
+					
 
 					std::stringstream ss;
 					ss<<scene->GetWizards()->at(i)->AP;
-					ActionPoints.setString(ss.str());
-					window.draw(text);		
+					ActionPoints.setString(ss.str());	
 					window.draw(ActionPoints);
 				}
 			}
