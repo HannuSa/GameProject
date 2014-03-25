@@ -60,6 +60,7 @@ void Input::Update()
 			Temp->at(i)->AP+=scene->GetWizards()->at(i)->APMax;
 			Temp->at(i)->Spells[0].Selected=false;
 			Temp->at(i)->moving=false;
+			//Temp->at(i)->Selected=false;
 		}
 		scene->GetState()->NewState(GROUP_2_TURN);
 	}
@@ -75,19 +76,19 @@ if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) == true)
 
 	else if(sf::Mouse::getPosition(*window).x<100)
 	{
-		scene->DrawPos.x+=2,5;
+		scene->DrawPos.x+=15;
 	}
 	else if(sf::Mouse::getPosition(*window).x>700)
 	{
-		scene->DrawPos.x-=2,5;
+		scene->DrawPos.x-=15;
 	}
 	else if(sf::Mouse::getPosition(*window).y<100)
 	{
-		scene->DrawPos.y+=2,5;
+		scene->DrawPos.y+=15;
 	}
 	else if(sf::Mouse::getPosition(*window).y>500)
 	{
-		scene->DrawPos.y-=2,5;
+		scene->DrawPos.y-=15;
 	}
 }
 
@@ -102,11 +103,11 @@ void Input::Select()
 			if(Temp->at(i)->status != DEAD)
 			{
 				if(
-					Temp->at(i)->GetPosition().x*32-draw.x <= sf::Mouse::getPosition(*window).x-draw.x &&
-					sf::Mouse::getPosition(*window).x-draw.x <= Temp->at(i)->GetPosition().x*32+32-draw.x &&
+					Temp->at(i)->GetPosition().x*32/*-draw.x*/ <= sf::Mouse::getPosition(*window).x-draw.x &&
+					sf::Mouse::getPosition(*window).x-draw.x <= Temp->at(i)->GetPosition().x*32+32/*-draw.x*/ &&
 
-					Temp->at(i)->GetPosition().x*32-draw.y <= sf::Mouse::getPosition(*window).y-draw.y &&
-					sf::Mouse::getPosition(*window).y-draw.y <= Temp->at(i)->GetPosition().y*32+32-draw.y )
+					Temp->at(i)->GetPosition().x*32/*-draw.y*/ <= sf::Mouse::getPosition(*window).y-draw.y &&
+					sf::Mouse::getPosition(*window).y-draw.y <= Temp->at(i)->GetPosition().y*32+32/*-draw.y*/ )
 				{
 					if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)== true)
 					{
@@ -129,8 +130,8 @@ bool Input::SetDestination()
 
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)==true)
 				{
-					Destination.x = (int)sf::Mouse::getPosition(*window).x/32-draw.x;
-					Destination.y = (int)sf::Mouse::getPosition(*window).y/32-draw.y;
+					Destination.x = (int)sf::Mouse::getPosition(*window).x/32-(draw.x/10);
+					Destination.y = (int)sf::Mouse::getPosition(*window).y/32-(draw.y/10);
 					Temp->at(i)->moving=true;
 					return true;
 				}

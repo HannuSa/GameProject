@@ -11,7 +11,7 @@
 
 int main()
 {
-	Wizard *w = new Wizard(sf::Vector2<int>(4,15),20,5);
+	Wizard *w = new Wizard(sf::Vector2<int>(18,15),20,5);
 	Creature *c1 = new Creature(sf::Vector2<int>(1,1),2,4,2);
 	Creature *c2 = new Creature(sf::Vector2<int>(2,2),2,4,2);
 

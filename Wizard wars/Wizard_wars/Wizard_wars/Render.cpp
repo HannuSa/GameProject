@@ -82,7 +82,7 @@ void Render::update()
 			}
 			else
 			{
-				Test1.setColor(sf::Color(0, 0, 0));
+				//Test1.setColor(sf::Color(0, 0, 0));
 			}
 			window.draw(Test1);
 	}
@@ -104,7 +104,7 @@ void Render::update()
 			}
 			else
 			{
-				Test2.setColor(sf::Color(0, 0, 0));
+				//Test2.setColor(sf::Color(0, 0, 0));
 			}
 
 			window.draw(Test2);
