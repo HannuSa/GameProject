@@ -103,11 +103,11 @@ void Input::Select()
 			if(Temp->at(i)->status != DEAD)
 			{
 				if(
-					Temp->at(i)->GetPosition().x*32/*-draw.x*/ <= sf::Mouse::getPosition(*window).x-draw.x &&
-					sf::Mouse::getPosition(*window).x-draw.x <= Temp->at(i)->GetPosition().x*32+32/*-draw.x*/ &&
+					Temp->at(i)->GetPosition().x*32 <= sf::Mouse::getPosition(*window).x-draw.x &&
+					sf::Mouse::getPosition(*window).x-draw.x <= Temp->at(i)->GetPosition().x*32+32 &&
 
-					Temp->at(i)->GetPosition().x*32/*-draw.y*/ <= sf::Mouse::getPosition(*window).y-draw.y &&
-					sf::Mouse::getPosition(*window).y-draw.y <= Temp->at(i)->GetPosition().y*32+32/*-draw.y*/ )
+					Temp->at(i)->GetPosition().y*32 <= sf::Mouse::getPosition(*window).y-draw.y &&
+					sf::Mouse::getPosition(*window).y-draw.y <= Temp->at(i)->GetPosition().y*32+32 )
 				{
 					if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)== true)
 					{
@@ -130,8 +130,8 @@ bool Input::SetDestination()
 
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)==true)
 				{
-					Destination.x = (int)sf::Mouse::getPosition(*window).x/32-(draw.x/10);
-					Destination.y = (int)sf::Mouse::getPosition(*window).y/32-(draw.y/10);
+					Destination.x = (int)((sf::Mouse::getPosition(*window).x-draw.x)/32);
+					Destination.y = (int)((sf::Mouse::getPosition(*window).y-draw.y)/32);
 					Temp->at(i)->moving=true;
 					return true;
 				}
@@ -169,6 +169,7 @@ void Input::SelectSpell()
 
 void Input::CastSpell(Wizard *w,Spell s)
 {
+	sf::Vector2<float> draw = scene->DrawPos;
 	if(s.type == MAGIC_MISSILE)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
