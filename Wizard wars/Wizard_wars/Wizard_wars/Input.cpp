@@ -152,7 +152,7 @@ void Input::SelectSpell()
 		{
 			if(Temp->at(i)->Selected==true)
 			{
-				if(Temp->at(i)->Spells[0].type == FIREBALL/*MAGIC_MISSILE*/ && sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+				if(Temp->at(i)->Spells[0].type == /*FIREBALL*/MAGIC_MISSILE && sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 				{
 					if(Temp->at(i)->AP >= Temp->at(i)->Spells[0].Cost)
 					{
@@ -169,14 +169,19 @@ void Input::SelectSpell()
 
 void Input::CastSpell(Wizard *w,Spell s)
 {
+	sf::Vector2i nakki = sf::Mouse::getPosition(*window);
 	sf::Vector2<float> draw = scene->DrawPos;
+
+	nakki.x += draw.x;
+	nakki.y += draw.y;
+
 	if(s.type == MAGIC_MISSILE)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+			if(scene->GetCreatureByPos(nakki/32)->C !=NULL)
 			{
-				scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C->CurHp -= s.Damage;
+				scene->GetCreatureByPos(nakki/32)->C->CurHp -= s.Damage;
 				w->AP -= s.Cost;
 			}
 			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
