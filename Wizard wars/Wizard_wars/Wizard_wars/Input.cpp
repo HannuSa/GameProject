@@ -12,7 +12,7 @@ Input::~Input()
 void Input::Update()
 {
 	std::vector<Wizard*>* Temp=scene->GetWizards();
-	//MoveMap();
+	MoveMap();
 	Select();
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == true)
@@ -29,13 +29,20 @@ void Input::Update()
 	if(scene->GetState()->returnState() == GROUP_1_TURN && scene->CheckTurnEnd() == false)
 	{
 		SelectSpell();
-		if(SetDestination()==true)
+		for(int i = 0; i < Temp->size();i++)
 		{
-			for(int i = 0; i < Temp->size();i++)
+
+			if(Temp->at(i)->Selected==true && Temp->at(i)->Spells[0].Selected==true)
+					{
+						CastSpell(Temp->at(i),Temp->at(i)->Spells[0]);
+					}
+
+			if(SetDestination()==true)
 			{
 				if(Temp->at(i)->AP>0)
 				{
-					if(Temp->at(i)->GetPosition() !=Destination)
+
+					if(Temp->at(i)->GetPosition() != Destination)
 					{
 						if(Temp->at(i)->Selected==true)
 						{
@@ -43,10 +50,6 @@ void Input::Update()
 							Temp->at(i)->AP-=1;
 							
 						}
-					}
-					if(Temp->at(i)->Selected==true && Temp->at(i)->Spells[0].Selected==true)
-					{
-						CastSpell(Temp->at(i),Temp->at(i)->Spells[0]);
 					}
 				}
 			}
@@ -172,21 +175,24 @@ void Input::CastSpell(Wizard *w,Spell s)
 	sf::Vector2i nakki = sf::Mouse::getPosition(*window);
 	sf::Vector2<float> draw = scene->DrawPos;
 
-	nakki.x += draw.x;
-	nakki.y += draw.y;
+	nakki.x -= draw.x;
+	nakki.y -= draw.y;
 
 	if(s.type == MAGIC_MISSILE)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
+			scene->GetCreatureByPos(nakki/32);
+
 			if(scene->GetCreatureByPos(nakki/32)->C !=NULL)
 			{
 				scene->GetCreatureByPos(nakki/32)->C->CurHp -= s.Damage;
 				w->AP -= s.Cost;
 			}
-			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+			else if(scene->GetCreatureByPos(nakki/32)->W != NULL)
 			{
-				scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W->CurHp =- s.Damage;
+				/*sf::Mouse::getPosition(*window)/32*/
+				scene->GetCreatureByPos(nakki/32)->W->CurHp =- s.Damage;
 				w->AP -= s.Cost;
 			}
 		}

@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include <cmath>
+#include <iostream>
 
 Scene::Scene()
 {}
@@ -82,6 +83,11 @@ void Scene::update()
 					}
 				}
 			}
+			else
+			{
+				Creatures[i]->acting=false;
+				Creatures[i+1]->acting = true;
+			}
 		}
 	}
 	else if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == true)
@@ -156,6 +162,7 @@ bool Scene::CheckTurnEnd()
 
 Target* Scene::GetCreatureByPos(sf::Vector2<int> P)
 {
+	std::cout<<"X:" <<P.x<<"Y:"<<P.y<<std::endl;
 	Target t;
 	t.C = NULL;
 	t.W = NULL;

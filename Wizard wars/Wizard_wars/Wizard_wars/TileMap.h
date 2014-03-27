@@ -14,12 +14,8 @@ class TileMap
 public:
 	TileMap();
 	~TileMap(void);
-private:
 
-public:
-	
 	TileType tiles[TILEMAP_WIDTH][TILEMAP_HEIGHT];
-	
 };
 
 #endif
