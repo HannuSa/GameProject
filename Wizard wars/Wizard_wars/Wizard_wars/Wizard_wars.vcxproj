@@ -103,6 +103,7 @@
     <ClInclude Include="PassiveState.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SearchNode.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SpellManager.h" />
     <ClInclude Include="Tile.h" />
