@@ -5,7 +5,7 @@
 #include <SFML\System\Vector2.hpp>
 #include <math.h>
 
-struct Searchnode
+struct SearchNode
 {
 	SearchNode* nextNode;
 
@@ -24,10 +24,9 @@ struct Searchnode
 		return G + H;
 	}
 
-	float HeuristicDistance(SearchNode& othernode)
+	float HeuristicDistance(SearchNode &otherNode)
 	{
 		//return 0; <--- ???
-
 		int x = abs(Position.x - otherNode.Position.x);
 		int y = abs(Position.y - otherNode.Position.y);
 

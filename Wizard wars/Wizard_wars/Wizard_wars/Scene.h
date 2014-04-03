@@ -5,6 +5,7 @@
 #include "Wizard.h"
 #include "GameState.h"
 #include "SpellManager.h"
+#include "SearchNode.h"
 #include <vector>
 
 struct Target
@@ -34,7 +35,8 @@ public:
 	void Attack(Creature* Attacker, Wizard* Target);
 	
 	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
-	
+
+
 	Target *GetCreatureByPos(sf::Vector2<int> P);
 
 	SpellManager s;
