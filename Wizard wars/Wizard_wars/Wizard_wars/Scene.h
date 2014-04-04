@@ -34,7 +34,11 @@ public:
 
 	void Attack(Creature* Attacker, Wizard* Target);
 	
+	//Pathfinding
 	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
+	bool OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
+	bool FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End);
+	void clearVectors();
 
 
 	Target *GetCreatureByPos(sf::Vector2<int> P);
@@ -45,6 +49,12 @@ protected:
 	TileMap tilemap;
 	std::vector<Creature*> Creatures;
 	std::vector<Wizard*> Wizards;
+
+	//Components for pathfinding
+	std::vector<SearchNode*> openList;
+	std::vector<SearchNode*> closedList;
+	std::vector<sf::Vector2<int>*> PathToGoal;
+
 public:
 	TileMap* getTilemap()
 	{

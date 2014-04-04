@@ -335,3 +335,57 @@ while(i > 0)
 pos = Start;//Could not calculate the path!
 return pos;
 }
+
+void Scene::clearVectors()
+{
+	for (unsigned int i = 0; i < openList.size(); i++)
+	{
+		delete openList[i];
+	}
+	openList.clear();
+	
+	for (unsigned int i = 0; i < closedList.size(); i++)
+	{
+		delete closedList[i];
+	}
+	closedList.clear();
+
+
+	//Not sure about this
+	/*for (unsigned int i = 0; i <pathToGoal.size(); i++)
+	{
+		delete pathToGoal[i];
+	}
+	pathToGoal.clear();*/
+}
+
+bool Scene::OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
+{
+	return FindPathReversed(Start,End);
+}
+
+bool Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
+{
+	clearVectors();
+
+	SearchNode* startNode = new SearchNode(Start,NULL);
+
+	SearchNode* goalNode = new SearchNode(End, NULL);
+
+	startNode->G = 0;
+	startNode->H = startNode->HeuristicDistance(*goalNode);
+
+	openList.push_back(startNode);
+
+	while(!openList.empty())
+	{
+		SearchNode* currentNode = getNextNode();
+
+		if(currentNode->Position == goalNode->Position)
+		{
+		
+		
+		}
+	}
+
+}
