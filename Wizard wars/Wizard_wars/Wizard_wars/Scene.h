@@ -36,9 +36,11 @@ public:
 	
 	//Pathfinding
 	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
+	SearchNode* getNextNode();
 	bool OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
 	bool FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End);
 	void clearVectors();
+	void pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* nextNode, SearchNode* goalNode);
 
 
 	Target *GetCreatureByPos(sf::Vector2<int> P);

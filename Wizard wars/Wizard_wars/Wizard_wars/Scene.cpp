@@ -383,9 +383,128 @@ bool Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
 
 		if(currentNode->Position == goalNode->Position)
 		{
-		
-		
+			goalNode->nextNode = currentNode->nextNode;
+
+			for(std::vector<SearchNode*>::iterator it = openList.begin(); it != openList.end(); it++)
+			{
+				//world->getTile((*iter)->position->tileChar = 'O';
+			}
+
+			SearchNode* getPath = goalNode;
+			while (getPath != NULL)
+			{
+				/*if(world->getTile(getPath->position)->tilechar == 'O')
+				{
+					world->Gettile(getPath->position)->tilechar = '?';
+				}
+				else
+				{
+					world_>GetTile(getPath->position)->tilechar = 'P';
+				}
+				
+				pathToGoal.push-back(new Point2D(getPath->position));
+				getPath = getPath->nextNode;
+
+				*/
+			}
+			return true;
+		}
+		else
+		{
+			//rightCell
+			pathOpened(currentNode->Position + sf::Vector2<int>(1,0),currentNode->G+1,currentNode,goalNode);
+			//leftCell
+			pathOpened(currentNode->Position + sf::Vector2<int>(-1,0),currentNode->G+1,currentNode,goalNode);
+			//upperCell
+			pathOpened(currentNode->Position + sf::Vector2<int>(0,-1),currentNode->G+1,currentNode,goalNode);
+			//lowerCell
+			pathOpened(currentNode->Position + sf::Vector2<int>(0,1),currentNode->G+1,currentNode,goalNode);
+
+			//upperRight
+			pathOpened(currentNode->Position + sf::Vector2<int>(1,-1),currentNode->G+1.141f,currentNode,goalNode);
+			//upperLeft
+			pathOpened(currentNode->Position + sf::Vector2<int>(-1,-1),currentNode->G+1.141f,currentNode,goalNode);
+			//lowerRight
+			pathOpened(currentNode->Position + sf::Vector2<int>(1,1),currentNode->G+1.141f,currentNode,goalNode);
+			//loverLeft
+			pathOpened(currentNode->Position + sf::Vector2<int>(-1,1),currentNode->G+1.141f,currentNode,goalNode);
+		}
+	}
+	return false;
+}
+
+SearchNode* Scene::getNextNode()
+{
+	float bestF = FLT_MAX;
+	int cellIndex = -1;
+
+	SearchNode* nextNode = NULL;
+
+	for(unsigned int i = 0; i<openList.size(); i++)
+	{
+		if(openList[i]->GetF() <= bestF)
+		{
+			bestF = openList[i]->GetF();
+			cellIndex = i;
 		}
 	}
 
+	if(cellIndex != -1)
+	{
+		nextNode = openList[cellIndex];
+
+		for(int i = 0; i<closedList.size(); i++)
+		{
+			if(closedList[i]->Position == nextNode->Position)
+			{
+				break;
+			}
+		}
+		closedList.push_back(nextNode);
+		//move
+		openList.erase(openList.begin()+cellIndex);
+
+		return nextNode;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+void Scene::pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* nextNode, SearchNode* goalNode)
+{
+	//tähän väliin checkki että voidaanko mennä ja return(eli break) jos on
+	if(Position.x < 0 || Position.x > TILEMAP_WIDTH ||
+		Position.y < 0 || Position.y > TILEMAP_HEIGHT/*||
+		!tile == walkable*/)
+	return;
+
+	for(unsigned int i = 0; i < closedList.size(); i++)
+	{
+		if(Position == closedList[i]->Position)
+		return;
+	}
+
+	SearchNode* newNode = new SearchNode(Position,nextNode);
+	newNode->G = newCost;
+	newNode->H = newNode->HeuristicDistance(*goalNode);
+
+	for(unsigned int i = 0; i <openList.size(); i++)
+	{
+		if(Position == openList[i]->Position)
+		{
+			if(newNode->G < openList[i]->G)
+			{
+				delete openList[i];
+				openList.erase(openList.begin()+i);
+			}
+			else
+			{
+				delete newNode;
+				return;
+			}
+		}
+	}
+	openList.push_back(newNode);
 }
