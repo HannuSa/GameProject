@@ -404,7 +404,7 @@ bool Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
 				
 				pathToGoal.push-back(new Point2D(getPath->position));
 				getPath = getPath->nextNode;
-
+				F
 				*/
 			}
 			return true;

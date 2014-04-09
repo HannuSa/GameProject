@@ -127,18 +127,18 @@ void Render::update()
 						{
 						text.setString("Magic Missile");
 						}
-						text.setPosition(810,0);
+						text.setPosition(810,0+x*25);
 						window.draw(text);
 					}
 
-					if(scene->GetWizards()->at(i)->Spells[x].type==FIREBALL)
+					else if(scene->GetWizards()->at(i)->Spells[x].type==FIREBALL)
 					{
 						text.setString("M)Fireball");
 						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
 						{
 						text.setString("Fireball");
 						}
-						text.setPosition(810,0);
+						text.setPosition(810,(0+x*25));
 						window.draw(text);
 					}
 					
