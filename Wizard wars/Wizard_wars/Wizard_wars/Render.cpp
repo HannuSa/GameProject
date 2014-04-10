@@ -122,7 +122,7 @@ void Render::update()
 				{
 					if(scene->GetWizards()->at(i)->Spells[x].type==MAGIC_MISSILE)
 					{
-						text.setString("M)Magic Missile");
+						text.setString("1)Magic Missile");
 						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
 						{
 						text.setString("Magic Missile");
@@ -133,7 +133,7 @@ void Render::update()
 
 					else if(scene->GetWizards()->at(i)->Spells[x].type==FIREBALL)
 					{
-						text.setString("M)Fireball");
+						text.setString("2)Fireball");
 						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
 						{
 						text.setString("Fireball");

@@ -4,6 +4,7 @@ Input::Input(Scene *c,sf::RenderWindow *w)
 {
 	scene = c;
 	window = w;
+	indicator = -1;
 }
 
 Input::~Input()
@@ -32,11 +33,14 @@ void Input::Update()
 		for(int i = 0; i < Temp->size();i++)
 		{
 
-			if(Temp->at(i)->Selected==true && Temp->at(i)->Spells[0].Selected==true)
+			if(Temp->at(i)->Selected==true)
+				for(int s = 0; s < Temp->at(i)->Spells.size();s++)
+				{
+					if(Temp->at(i)->Spells[s].Selected==true)
 					{
-						CastSpell(Temp->at(i),Temp->at(i)->Spells[0]);
+							CastSpell(Temp->at(i),Temp->at(i)->Spells[s]);
 					}
-
+				}
 			if(SetDestination()==true)
 			{
 				if(Temp->at(i)->AP>0)
@@ -155,15 +159,50 @@ void Input::SelectSpell()
 		{
 			if(Temp->at(i)->Selected==true)
 			{
-				if(Temp->at(i)->Spells[0].type == /*FIREBALL*/MAGIC_MISSILE && sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+				for(int s = 0; s < Temp->at(i)->Spells.size();s++)
 				{
-					if(Temp->at(i)->AP >= Temp->at(i)->Spells[0].Cost)
+					if(Temp->at(i)->Spells[s].type == MAGIC_MISSILE && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 					{
-						Temp->at(i)->Spells[0].Selected=true;
+						if(Temp->at(i)->AP >= Temp->at(i)->Spells[s].Cost)
+						{
+							indicator = s;
+							Temp->at(i)->Spells[s].Selected=true;
+						}
+						else 
+						{
+							printf("Not enough actionpoints");
+						}
 					}
-					else 
+					else if(Temp->at(i)->Spells[s].type == FIREBALL && sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 					{
-						printf("Not enough actionpoints");
+						if(Temp->at(i)->AP >= Temp->at(i)->Spells[s].Cost)
+						{
+							indicator = s;
+							Temp->at(i)->Spells[s].Selected=true;
+						}
+						else 
+						{
+							printf("Not enough actionpoints");
+						}
+					}
+					else if(Temp->at(i)->Spells[s].type == ICE_BOLT && sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+					{
+						if(Temp->at(i)->AP >= Temp->at(i)->Spells[s].Cost)
+						{
+							indicator = s;
+							Temp->at(i)->Spells[s].Selected=true;
+						}
+						else 
+						{
+							printf("Not enough actionpoints");
+						}
+					}
+				}
+				for(int x = 0; x < Temp->at(i)->Spells.size();x++)
+				{
+					if(indicator != x)
+					{
+						Temp->at(i)->Spells[x].Selected = false;
 					}
 				}
 			}
@@ -172,27 +211,27 @@ void Input::SelectSpell()
 
 void Input::CastSpell(Wizard *w,Spell s)
 {
-	sf::Vector2i nakki = sf::Mouse::getPosition(*window);
+	sf::Vector2i WinPos = sf::Mouse::getPosition(*window);
 	sf::Vector2<float> draw = scene->DrawPos;
 
-	nakki.x -= draw.x;
-	nakki.y -= draw.y;
+	WinPos.x -= draw.x;
+	WinPos.y -= draw.y;
 
 	if(s.type == MAGIC_MISSILE)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			scene->GetCreatureByPos(nakki/32);
+			scene->GetCreatureByPos(WinPos/32);
 
-			if(scene->GetCreatureByPos(nakki/32)->C !=NULL)
+			if(scene->GetCreatureByPos(WinPos/32)->C !=NULL)
 			{
-				scene->GetCreatureByPos(nakki/32)->C->CurHp -= s.Damage;
+				scene->GetCreatureByPos(WinPos/32)->C->CurHp -= s.Damage;
 				w->AP -= s.Cost;
 			}
-			else if(scene->GetCreatureByPos(nakki/32)->W != NULL)
+			else if(scene->GetCreatureByPos(WinPos/32)->W != NULL)
 			{
 				/*sf::Mouse::getPosition(*window)/32*/
-				scene->GetCreatureByPos(nakki/32)->W->CurHp =- s.Damage;
+				scene->GetCreatureByPos(WinPos/32)->W->CurHp =- s.Damage;
 				w->AP -= s.Cost;
 			}
 		}
@@ -202,9 +241,9 @@ void Input::CastSpell(Wizard *w,Spell s)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+			if(scene->GetCreatureByPos(WinPos/32)->C !=NULL)
 			{
-				Creature *c = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C;
+				Creature *c = scene->GetCreatureByPos(WinPos/32)->C;
 				c->CurHp =- s.Damage;
 				scene->getTilemap()->tiles[c->GetPosition().x][c->GetPosition().y]=TILE_FIRE;
 				scene->getTilemap()->tiles[c->GetPosition().x+1][c->GetPosition().y]=TILE_FIRE;
@@ -217,9 +256,9 @@ void Input::CastSpell(Wizard *w,Spell s)
 				scene->getTilemap()->tiles[c->GetPosition().x-1][c->GetPosition().y+1]=TILE_FIRE;
 				w->AP -= s.Cost;
 			}
-			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
+			else if(scene->GetCreatureByPos(WinPos/32)->W != NULL)
 			{
-				Wizard *w2 = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W;
+				Wizard *w2 = scene->GetCreatureByPos(WinPos/32)->W;
 				w2->CurHp =- s.Damage;
 				scene->getTilemap()->tiles[w2->GetPosition().x][w2->GetPosition().y]=TILE_FIRE;
 				scene->getTilemap()->tiles[w2->GetPosition().x+1][w2->GetPosition().y]=TILE_FIRE;
@@ -239,16 +278,16 @@ void Input::CastSpell(Wizard *w,Spell s)
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C !=NULL)
+			if(scene->GetCreatureByPos(WinPos/32)->C !=NULL)
 			{
-				Creature *c = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->C;
+				Creature *c = scene->GetCreatureByPos(WinPos/32)->C;
 				c->CurHp =- s.Damage;
 				c->status = FROZEN;
 				w->AP -= s.Cost;
 			}
 			else if(scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W != NULL)
 			{
-				Wizard *w2 = scene->GetCreatureByPos(sf::Mouse::getPosition(*window)/32)->W;
+				Wizard *w2 = scene->GetCreatureByPos(WinPos/32)->W;
 				w2->CurHp =- s.Damage;
 				w2->status = FROZEN;
 				w->AP -= s.Cost;

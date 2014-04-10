@@ -20,5 +20,6 @@ private:
 	Scene *scene;
 	sf::RenderWindow *window;
 	sf::Vector2<int> Destination;
+	int indicator;
 };
 #endif
