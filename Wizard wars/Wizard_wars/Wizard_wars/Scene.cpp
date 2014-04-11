@@ -11,6 +11,7 @@ Scene::Scene(Wizard *w)
 	CurrentState = new GameState();
 	DrawPos = sf::Vector2<float>(0,0);
 	CurrentState->NewState(GROUP_1_TURN);
+	Selected = NULL;
 }
 
 
@@ -22,6 +23,7 @@ Scene::~Scene(void)
 void Scene::AddCreature(Creature *c)
 {
 	 Creatures.push_back(c);
+	 Indicator = Creatures.begin();
 
 }
 
@@ -52,43 +54,41 @@ void Scene::update()
 
 	if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == false)
 	{
-		Creatures[0]->acting=true;
-		for(int i = 0; i < Creatures.size(); i++)
-		{
-			if(Creatures[i]->status!=DEAD)
-			{
-				if(Creatures[i]->acting==true)
-				{
+		(*Indicator)->acting=true;
 
-					if(Creatures[i]->GetType()==2)
+			if((*Indicator)->status!=DEAD)
+			{
+				if((*Indicator)->acting==true)
+				{
+					if((*Indicator)->GetType()==2)
 					{
-						if(Creatures[i]->AP>0)
+						if((*Indicator)->AP>0)
 						{
-							if(GetDistance(GetTargetPos(),Creatures[i]->GetPosition())>1)
+							if(GetDistance(GetTargetPos(),(*Indicator)->GetPosition())>1)
 							{
-								MoveCreature(i);
-								Creatures[i]->AP-=1;
+								MoveCreature((*Indicator));
+								(*Indicator)->AP-=1;
 							}
 							else
 							{
-								Attack(Creatures[i],Wizards[0]);
-								Creatures[i]->AP-=1;
+								Attack((*Indicator),Wizards[0]);
+								(*Indicator)->AP-=1;
 							}
 						}
 						else
 						{
-							Creatures[i]->acting=false;
-							Creatures[i+1]->acting=true;
+							(*Indicator)->acting=false;
+							Indicator++;
 						}
 					}
 				}
 			}
 			else
 			{
-				Creatures[i]->acting=false;
-				Creatures[i+1]->acting = true;
+				(*Indicator)->acting=false;
+				Indicator++;
 			}
-		}
+		
 	}
 	else if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == true)
 		{
@@ -100,13 +100,14 @@ void Scene::update()
 				Creatures[i]->acting=false;
 				}
 			}
+			Indicator = Creatures.begin();
 			CurrentState->NewState(GROUP_1_TURN);
 		}
 }
 
-void Scene::MoveCreature(int T)
+void Scene::MoveCreature(Creature *c)
 {
-	Creatures[T]->Move(FindPath(Creatures[T]->GetPosition(),GetTargetPos()));
+	c->Move(FindPath(c->GetPosition(),GetTargetPos()));
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
@@ -148,12 +149,9 @@ bool Scene::CheckTurnEnd()
 
 	else if(CurrentState->returnState() == GROUP_2_TURN)
 	{
-		for(int i = 0; i < Creatures.size(); i++)
+		if(Indicator != Creatures.end())
 		{
-			if (Creatures[i]->AP > 0)
-			{
-				return TurnEnd;
-			}
+			return TurnEnd;
 		}
 	}
 	 TurnEnd=true;
@@ -350,27 +348,22 @@ void Scene::clearVectors()
 	}
 	closedList.clear();
 
-
-	//Not sure about this
-	/*for (unsigned int i = 0; i <pathToGoal.size(); i++)
-	{
-		delete pathToGoal[i];
-	}
-	pathToGoal.clear();*/
+	
+	PathToGoal.clear();
 }
 
-bool Scene::OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
+std::vector<sf::Vector2<int>> Scene::OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End)
 {
 	return FindPathReversed(Start,End);
 }
 
-bool Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
+std::vector<sf::Vector2<int>> Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
 {
 	clearVectors();
 
-	SearchNode* startNode = new SearchNode(Start,NULL);
+	SearchNode* startNode = new SearchNode(Start,GetTileByPos(Start),NULL);
 
-	SearchNode* goalNode = new SearchNode(End, NULL);
+	SearchNode* goalNode = new SearchNode(End,GetTileByPos(End), NULL);
 
 	startNode->G = 0;
 	startNode->H = startNode->HeuristicDistance(*goalNode);
@@ -387,27 +380,21 @@ bool Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
 
 			for(std::vector<SearchNode*>::iterator it = openList.begin(); it != openList.end(); it++)
 			{
-				//world->getTile((*iter)->position->tileChar = 'O';
+				//propably unnecessary
 			}
 
 			SearchNode* getPath = goalNode;
 			while (getPath != NULL)
 			{
-				/*if(world->getTile(getPath->position)->tilechar == 'O')
+				/*if (GetTileByPos(getPath->position) != walkable)
 				{
-					world->Gettile(getPath->position)->tilechar = '?';
-				}
-				else
-				{
-					world_>GetTile(getPath->position)->tilechar = 'P';
-				}
-				
-				pathToGoal.push-back(new Point2D(getPath->position));
+					//error message
+				}*/
+				PathToGoal.push_back(getPath->Position);
 				getPath = getPath->nextNode;
-				F
-				*/
 			}
-			return true;
+			
+			return PathToGoal;
 		}
 		else
 		{
@@ -430,7 +417,8 @@ bool Scene::FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End)
 			pathOpened(currentNode->Position + sf::Vector2<int>(-1,1),currentNode->G+1.141f,currentNode,goalNode);
 		}
 	}
-	return false;
+	PathToGoal.push_back(Start);
+	return PathToGoal;
 }
 
 SearchNode* Scene::getNextNode()
@@ -486,7 +474,7 @@ void Scene::pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* next
 		return;
 	}
 
-	SearchNode* newNode = new SearchNode(Position,nextNode);
+	SearchNode* newNode = new SearchNode(Position,GetTileByPos(Position),nextNode);
 	newNode->G = newCost;
 	newNode->H = newNode->HeuristicDistance(*goalNode);
 

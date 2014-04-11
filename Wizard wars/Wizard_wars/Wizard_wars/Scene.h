@@ -23,7 +23,7 @@ public:
 	void AddCreature(Creature *c);
 	void update();
 	bool CheckTurnEnd();
-	void MoveCreature(int T);
+	void MoveCreature(Creature *c);
 
 	sf::Vector2<float> DrawPos;
 	GameState *GetState();
@@ -37,8 +37,8 @@ public:
 	//Pathfinding
 	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
 	SearchNode* getNextNode();
-	bool OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
-	bool FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End);
+	std::vector<sf::Vector2<int>> OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
+	std::vector<sf::Vector2<int>> FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End);
 	void clearVectors();
 	void pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* nextNode, SearchNode* goalNode);
 
@@ -46,16 +46,21 @@ public:
 	Target *GetCreatureByPos(sf::Vector2<int> P);
 
 	SpellManager s;
+	//Input and render
+	Wizard *Selected;
+
 protected:
 	GameState *CurrentState;
 	TileMap tilemap;
 	std::vector<Creature*> Creatures;
+	std::vector<Creature*>::iterator Indicator;
 	std::vector<Wizard*> Wizards;
+
 
 	//Components for pathfinding
 	std::vector<SearchNode*> openList;
 	std::vector<SearchNode*> closedList;
-	std::vector<sf::Vector2<int>*> PathToGoal;
+	std::vector<sf::Vector2<int>> PathToGoal;
 
 public:
 	TileMap* getTilemap()

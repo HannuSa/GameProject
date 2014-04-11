@@ -11,13 +11,32 @@ struct SearchNode
 
 	sf::Vector2<int> Position;
 
-	float G, H;
+	float G, H , T;
 
 	SearchNode() : nextNode(0)
 	{	}
 
-	SearchNode(sf::Vector2<int> Pos, SearchNode* Next = 0) : Position(Pos), nextNode(Next), G(0), H(0)
-	{	}
+	SearchNode(sf::Vector2<int> Pos,TileType t, SearchNode* Next = 0) : Position(Pos), nextNode(Next), G(0), H(0)
+	{
+		switch(t)
+		{
+		TILE_GRASS:
+			T = 1.0;
+			break;
+		TILE_ROCK:
+			T = 3.0;
+			break;
+		TILE_FLOOR:
+			T = 1.0;
+			break;
+		TILE_FIRE:
+			T = 2.0;
+			break;
+		default:
+			T = 0.0;
+			break;
+		}
+	}
 
 	float GetF()
 	{
