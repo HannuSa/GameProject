@@ -160,7 +160,7 @@ bool Scene::CheckTurnEnd()
 
 Target* Scene::GetCreatureByPos(sf::Vector2<int> P)
 {
-	std::cout<<"X:" <<P.x<<"Y:"<<P.y<<std::endl;
+	//std::cout<<"X:" <<P.x<<"Y:"<<P.y<<std::endl;
 	Target t;
 	t.C = NULL;
 	t.W = NULL;
