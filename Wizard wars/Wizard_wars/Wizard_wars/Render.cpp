@@ -113,17 +113,16 @@ void Render::update()
 
 	if(scene->GetState()->returnState() == GROUP_1_TURN)
 	{
+		Wizard* chosen = scene->Selected;
 		window.draw(SpellList);
-		for(int i = 0; i < Temp2->size(); i++)
-		{
-			if(Temp2->at(i)->Selected==true)
+			if(chosen != NULL)
 				{
-				for(int x = 0; x<Temp2->at(i)->Spells.size();x++)
+				for(int x = 0; x<chosen->Spells.size();x++)
 				{
-					if(scene->GetWizards()->at(i)->Spells[x].type==MAGIC_MISSILE)
+					if(chosen->Spells[x].type==MAGIC_MISSILE)
 					{
 						text.setString("1)Magic Missile");
-						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
+						if(chosen->Spells[x].Selected == true)
 						{
 						text.setString("Magic Missile");
 						}
@@ -131,10 +130,10 @@ void Render::update()
 						window.draw(text);
 					}
 
-					else if(scene->GetWizards()->at(i)->Spells[x].type==FIREBALL)
+					else if(chosen->Spells[x].type==FIREBALL)
 					{
 						text.setString("2)Fireball");
-						if(scene->GetWizards()->at(i)->Spells[x].Selected == true)
+						if(chosen->Spells[x].Selected == true)
 						{
 						text.setString("Fireball");
 						}
@@ -144,12 +143,11 @@ void Render::update()
 					
 
 					std::stringstream ss;
-					ss<<scene->GetWizards()->at(i)->AP;
+					ss<<chosen->AP;
 					ActionPoints.setString(ss.str());	
 					window.draw(ActionPoints);
 				}
 			}
-		}
 	}
 
 			 window.display();
