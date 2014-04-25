@@ -66,8 +66,15 @@ void Scene::update()
 						{
 							if(GetDistance(GetTargetPos(),(*Indicator)->GetPosition())>1)
 							{
+								if((*Indicator)->path.empty())
+								{
+									(*Indicator)->SetPath(OwnFindPath((*Indicator)->GetPosition(),Wizards[0]->GetPosition()));
+								}
+								else
+								{
 								MoveCreature((*Indicator));
 								(*Indicator)->AP-=1;
+								}
 							}
 							else
 							{
@@ -98,16 +105,17 @@ void Scene::update()
 				{
 				Creatures[i]->AP+=Creatures[i]->APMax;
 				Creatures[i]->acting=false;
+				Creatures[i]->path.clear();
 				}
 			}
 			Indicator = Creatures.begin();
 			CurrentState->NewState(GROUP_1_TURN);
-		}
+			}
 }
 
 void Scene::MoveCreature(Creature *c)
 {
-	c->Move(FindPath(c->GetPosition(),GetTargetPos()));
+	c->Move();//(FindPath(c->GetPosition(),GetTargetPos()));
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
@@ -467,6 +475,25 @@ void Scene::pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* next
 		Position.y < 0 || Position.y > TILEMAP_HEIGHT/*||
 		!tile == walkable*/)
 	return;
+	//Checkki otusten paikoille
+	for(unsigned int i = 0; i < Creatures.size(); i++)
+	{
+		if(Creatures[i]->GetPosition() == Position)
+		{
+			return;
+		}
+	}
+	//Checkki velhojen paikoille
+	/*for(unsigned int j = 0; j < Wizards.size(); j++)
+	{
+		if(Wizards[j]->GetPosition() != goalNode->Position)
+		{
+			if(Wizards[j]->GetPosition() == Position)
+			{
+				return;
+			}
+		}
+	}*/
 
 	for(unsigned int i = 0; i < closedList.size(); i++)
 	{

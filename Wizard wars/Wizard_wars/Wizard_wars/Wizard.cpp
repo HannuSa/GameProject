@@ -20,3 +20,21 @@ void Wizard::AddSpell(Spell s)
 {
 	Spells.push_back(Spell(s));
 }
+
+void Wizard::SetPath(std::vector<sf::Vector2<int>> p)
+{
+	path = p;
+	it = path.end();
+}
+
+void Wizard::Move()
+{
+	if(!path.empty())
+	{
+		if(it != path.begin())
+		{
+			it--;
+		}
+		GameObject::Move((*it));
+	}
+}

@@ -45,11 +45,13 @@ void Input::Update()
 			{
 				if(scene->Selected->AP>0)
 				{
-
 					if(scene->Selected->GetPosition() != Destination)
 					{
-							scene->Selected->Move(scene->FindPath(scene->Selected->GetPosition(),Destination));
+						if(scene->Selected->path.empty())
+						{
+							scene->Selected->Move();
 							scene->Selected->AP-=1;
+						}
 					}
 				}
 			}
@@ -127,6 +129,7 @@ bool Input::SetDestination()
 					Destination.x = (int)((sf::Mouse::getPosition(*window).x-draw.x)/32);
 					Destination.y = (int)((sf::Mouse::getPosition(*window).y-draw.y)/32);
 					scene->Selected->moving=true;
+					scene->Selected->SetPath(scene->OwnFindPath(scene->Selected->GetPosition(),Destination));
 					return true;
 				}
 

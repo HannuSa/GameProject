@@ -18,5 +18,10 @@ public:
 	Status status;
 	bool moving;
 	std::vector<Spell> Spells;
+	void Move();
+	void SetPath(std::vector<sf::Vector2<int>> p);
+	std::vector<sf::Vector2<int>> path;
+private:
+	std::vector<sf::Vector2<int>>::iterator it;
 };
 #endif

@@ -8,7 +8,7 @@ public:
 	GameObject(sf::Vector2<int> pos);
 	virtual ~GameObject();
 	sf::Vector2<int> GetPosition();
-	void Move(sf::Vector2<int> newP);
+	virtual void Move(sf::Vector2<int> newP);
 	bool Selected;
 protected:
 	sf::Vector2<int> Position;

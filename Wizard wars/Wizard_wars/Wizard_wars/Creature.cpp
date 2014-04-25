@@ -21,3 +21,21 @@ int Creature::GetType()
 {
 	return type;
 }
+
+void Creature::SetPath(std::vector<sf::Vector2<int>> p)
+{
+	path = p;
+	it = path.end();
+}
+
+void Creature::Move()
+{
+	if(!path.empty())
+	{
+		if(it != path.begin())
+		{
+			it--;
+		}
+		GameObject::Move((*it));
+	}
+}
