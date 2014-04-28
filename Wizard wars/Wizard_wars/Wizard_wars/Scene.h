@@ -35,9 +35,8 @@ public:
 	void Attack(Creature* Attacker, Wizard* Target);
 	
 	//Pathfinding
-	sf::Vector2<int> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
 	SearchNode* getNextNode();
-	std::vector<sf::Vector2<int>> OwnFindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
+	std::vector<sf::Vector2<int>> FindPath(sf::Vector2<int> Start,sf::Vector2<int> End);
 	std::vector<sf::Vector2<int>> FindPathReversed(sf::Vector2<int> Start,sf::Vector2<int> End);
 	void clearVectors();
 	void pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* nextNode, SearchNode* goalNode);
