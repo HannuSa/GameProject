@@ -59,12 +59,23 @@ void Input::Update()
 
 	else if(scene->GetState()->returnState() == GROUP_1_TURN && scene->CheckTurnEnd() == true)
 	{
-		for(int i = 0; i<scene->GetWizards()->size();i++)
+		for(int i = 0; i<Temp->size();i++)
 		{
 			Temp->at(i)->AP+=scene->GetWizards()->at(i)->APMax;
 			Temp->at(i)->Spells[0].Selected=false;
 			Temp->at(i)->moving=false;
 			
+		}
+		std::vector<Creature*>* Temp2 = scene->GetCreatures();
+		for(unsigned int i = 0; i<Temp2->size();i++)
+		{
+			if(scene->GetTileByPos(Temp2->at(i)->GetPosition()) ==TILE_FIRE)
+			{
+				if(Temp2->at(i)->GetType() != 6)
+				{
+				Temp2->at(i)->CurHp -= 2;
+				}
+			}
 		}
 		//scene->Selected = NULL;
 		scene->GetState()->NewState(GROUP_2_TURN);
@@ -81,19 +92,31 @@ if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) == true)
 
 	else if(sf::Mouse::getPosition(*window).x<100)
 	{
+		if(scene->DrawPos.x < 0)
+		{
 		scene->DrawPos.x+=15;
+		}
 	}
 	else if(sf::Mouse::getPosition(*window).x>700)
 	{
+		if(scene->DrawPos.x > -2480)
+		{
 		scene->DrawPos.x-=15;
+		}
 	}
 	else if(sf::Mouse::getPosition(*window).y<100)
 	{
+		if(scene->DrawPos.y < 0)
+		{
 		scene->DrawPos.y+=15;
+		}
 	}
 	else if(sf::Mouse::getPosition(*window).y>500)
 	{
+		if(scene->DrawPos.y > -2688)
+		{
 		scene->DrawPos.y-=15;
+		}
 	}
 }
 
@@ -171,7 +194,7 @@ void Input::SelectSpell()
 					printf("Not enough actionpoints");
 				}
 			}
-			else if(scene->Selected->Spells[s].type == ICE_BOLT && sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			else if(scene->Selected->Spells[s].type == RAISE_UNDEAD && sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 			{
 				if(scene->Selected->AP >= scene->Selected->Spells[s].Cost)
 				{
@@ -182,6 +205,11 @@ void Input::SelectSpell()
 				{
 					printf("Not enough actionpoints");
 				}
+			}
+			//add more so no need to copy pasta that much
+			else if(scene->Selected->Spells[s].type == ICE_BOLT && sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			{
+			
 			}
 		}
 		for(int x = 0; x < scene->Selected->Spells.size();x++)
@@ -276,6 +304,92 @@ void Input::CastSpell(Wizard *w,Spell s)
 				w2->CurHp =- s.Damage;
 				w2->status = FROZEN;
 				w->AP -= s.Cost;
+			}
+		}
+	}
+
+		else if(s.type == STONE_WALL)
+	{
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			scene->GetCreatureByPos(WinPos/32);
+
+			if(scene->GetCreatureByPos(WinPos/32)->C ==NULL)
+			{
+					//create wall
+					w->AP -= s.Cost;
+			}
+			else if(scene->GetCreatureByPos(WinPos/32)->W == NULL)
+			{
+					//create wall
+					w->AP -= s.Cost;
+			}
+		}
+	}
+
+	else if(s.type == RAISE_UNDEAD)
+	{
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			scene->GetCreatureByPos(WinPos/32);
+
+			if(scene->GetCreatureByPos(WinPos/32)->C !=NULL)
+			{
+				if(scene->GetCreatureByPos(WinPos/32)->C->status == DEAD)
+				{
+					//raise undead
+					w->AP -= s.Cost;
+				}
+			}
+			else if(scene->GetCreatureByPos(WinPos/32)->W != NULL)
+			{
+				if(scene->GetCreatureByPos(WinPos/32)->W->status == DEAD)
+				{
+					//raise undead
+					w->AP -= s.Cost;
+				}
+			}
+		}
+	}
+		else if(s.type == SUMMON_DEMON)
+	{
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			scene->GetCreatureByPos(WinPos/32);
+
+			if(scene->GetCreatureByPos(WinPos/32)->C ==NULL)
+			{
+					//summon demon
+					w->AP -= s.Cost;
+			}
+			else if(scene->GetCreatureByPos(WinPos/32)->W == NULL)
+			{
+					//summon demon
+					w->AP -= s.Cost;
+			}
+		}
+	}
+		else if(s.type == HEAL)
+	{
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			scene->GetCreatureByPos(WinPos/32);
+
+			if(scene->GetCreatureByPos(WinPos/32)->C !=NULL)
+			{
+				if(scene->GetCreatureByPos(WinPos/32)->C->status == DEAD)
+				{
+					scene->GetCreatureByPos(WinPos/32)->C->CurHp += 5;
+					w->AP -= s.Cost;
+				}
+			}
+			else if(scene->GetCreatureByPos(WinPos/32)->W != NULL)
+			{
+				if(scene->GetCreatureByPos(WinPos/32)->W->status == DEAD)
+				{
+					scene->GetCreatureByPos(WinPos/32)->W->CurHp += 5;
+					w->AP -= s.Cost;
+				}
 			}
 		}
 	}

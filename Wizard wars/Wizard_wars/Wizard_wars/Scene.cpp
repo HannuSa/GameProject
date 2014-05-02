@@ -24,7 +24,16 @@ void Scene::AddCreature(Creature *c)
 {
 	 Creatures.push_back(c);
 	 Indicator = Creatures.begin();
+}
 
+void Scene::AddWizard(Wizard *w)
+{
+	Wizards.push_back(w);
+}
+
+void Scene::AddObject(GameObject *g)
+{
+	Objects.push_back(g);
 }
 
 GameState* Scene::GetState()
@@ -110,7 +119,7 @@ void Scene::update()
 			}
 			Indicator = Creatures.begin();
 			CurrentState->NewState(GROUP_1_TURN);
-			}
+		}
 }
 
 void Scene::MoveCreature(Creature *c)

@@ -21,6 +21,8 @@ public:
 	Scene(Wizard *w);
 	~Scene(void);
 	void AddCreature(Creature *c);
+	void AddWizard(Wizard *w);
+	void AddObject(GameObject *g);
 	void update();
 	bool CheckTurnEnd();
 	void MoveCreature(Creature *c);
@@ -54,6 +56,7 @@ protected:
 	std::vector<Creature*> Creatures;
 	std::vector<Creature*>::iterator Indicator;
 	std::vector<Wizard*> Wizards;
+	std::vector<GameObject*> Objects;
 
 
 	//Components for pathfinding

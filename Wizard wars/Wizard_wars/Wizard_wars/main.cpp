@@ -24,8 +24,6 @@ int main()
 		}
 	}*/
 	
-
-
 	scene.AddCreature(c1);
 	scene.AddCreature(c2);
 	Render render(&scene);
