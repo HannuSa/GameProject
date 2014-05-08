@@ -11,9 +11,9 @@
 
 int main()
 {
-	Wizard *w = new Wizard(sf::Vector2<int>(18,15),20,5);
-	Creature *c1 = new Creature(sf::Vector2<int>(1,1),2,4,2);
-	Creature *c2 = new Creature(sf::Vector2<int>(2,2),2,4,2);
+	Wizard *w = new Wizard(sf::Vector2<int>(18,15),NECROMANCER);
+	Creature *c1 = new Creature(sf::Vector2<int>(1,1),GOBLIN);
+	Creature *c2 = new Creature(sf::Vector2<int>(2,2),GOBLIN);
 
 	Scene scene(w);
 
@@ -28,6 +28,7 @@ int main()
 	scene.AddCreature(c2);
 	Render render(&scene);
 	Input input(&scene,render.GetWindow());
+
 	for(;;)
 	{
 		input.Update();

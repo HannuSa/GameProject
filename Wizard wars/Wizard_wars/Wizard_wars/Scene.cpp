@@ -69,8 +69,8 @@ void Scene::update()
 			{
 				if((*Indicator)->acting==true)
 				{
-					if((*Indicator)->GetType()==2)
-					{
+					/*if((*Indicator)->type==GOBLIN)
+					{*/
 						if((*Indicator)->AP>0)
 						{
 							if(GetDistance(GetTargetPos(),(*Indicator)->GetPosition())>1)
@@ -96,7 +96,7 @@ void Scene::update()
 							(*Indicator)->acting=false;
 							Indicator++;
 						}
-					}
+					/*}*/
 				}
 			}
 			else

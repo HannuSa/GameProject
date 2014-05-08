@@ -1,16 +1,75 @@
 #include "Wizard.h"
 
-Wizard::Wizard(sf::Vector2<int> pos,int hp,int dam):GameObject(pos)
+Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 {
-	MaxHp = hp;
-	startDam = dam;
-	CurHp = MaxHp;
-	CurDam = startDam;
-	AP = 10;
-	APMax = 10;
+	C = c;
+	switch (c)
+	{
+		case WIZARD:
+		MaxHp = 20;
+		startDam = 2;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 10;
+		APMax = 10;
+		Spells.push_back(Spell(MAGIC_MISSILE));
+		Spells.push_back(Spell(FIREBALL));
+		break;
+
+		case NECROMANCER:
+		MaxHp = 20;
+		startDam = 1;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 10;
+		APMax = 10;
+		Spells.push_back(Spell(MAGIC_MISSILE));
+		Spells.push_back(Spell(RAISE_UNDEAD));
+		break;
+
+		case CLERIC:
+		MaxHp = 30;
+		startDam = 9;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 10;
+		APMax = 10;
+		Spells.push_back(Spell(MAGIC_MISSILE));
+		Spells.push_back(Spell(HEAL));
+		break;
+
+		case SUMMONER:
+		MaxHp = 30;
+		startDam = 9;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 10;
+		APMax = 10;
+		Spells.push_back(Spell(MAGIC_MISSILE));
+		Spells.push_back(Spell(SUMMON_DEMON));
+		break;
+
+		case DEMON:
+		MaxHp = 50;
+		startDam = 17;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 0;
+		APMax = 15;
+		break;
+
+		default:
+			MaxHp = 20;
+		startDam = 2;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 10;
+		APMax = 10;
+		Spells.push_back(Spell(MAGIC_MISSILE));
+		Spells.push_back(Spell(FIREBALL));
+		break;
+	}
 	status = ALIVE;
-	Spells.push_back(Spell(MAGIC_MISSILE));
-	Spells.push_back(Spell(FIREBALL));
 }
 
 Wizard::~Wizard()

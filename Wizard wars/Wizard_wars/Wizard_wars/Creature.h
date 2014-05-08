@@ -6,15 +6,27 @@
 #include "ActiveState.h"
 #include <vector>
 
+enum Kind
+{
+	GOBLIN = 0,
+	HOBGOBLIN,
+	SLUG,
+	MINOTAUR,
+	IMP,
+	CHAOS_SPAWN,
+	PARACLYST_1,
+	PARACLYST_2,
+	PARACLYST_3
+};
+
 class Creature:public GameObject
 {
 public:
-	Creature(sf::Vector2<int> pos,int t,int hp,int dam);
+	Creature(sf::Vector2<int> pos,Kind t);
 	~Creature();
-	int GetType();
 	ActionState action;
 	Status status;
-	int type;
+	Kind type;
 	int AP;
 	int APMax;
 	int MaxHp,CurHp;

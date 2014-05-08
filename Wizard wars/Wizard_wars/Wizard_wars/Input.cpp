@@ -62,7 +62,10 @@ void Input::Update()
 		for(int i = 0; i<Temp->size();i++)
 		{
 			Temp->at(i)->AP+=scene->GetWizards()->at(i)->APMax;
+			if(!Temp->at(i)->Spells.empty())
+			{
 			Temp->at(i)->Spells[0].Selected=false;
+			}
 			Temp->at(i)->moving=false;
 			
 		}
@@ -71,7 +74,7 @@ void Input::Update()
 		{
 			if(scene->GetTileByPos(Temp2->at(i)->GetPosition()) ==TILE_FIRE)
 			{
-				if(Temp2->at(i)->GetType() != 6)
+				if(Temp2->at(i)->type != IMP)
 				{
 				Temp2->at(i)->CurHp -= 2;
 				}

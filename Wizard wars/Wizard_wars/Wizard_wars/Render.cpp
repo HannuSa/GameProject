@@ -8,14 +8,46 @@ Render::Render(Scene *scene)
 	:scene(scene)
 {
 	window.create(sf::VideoMode(1000,600),"Wizard wars");
-	Grass.loadFromFile("../Resources/Ruoho.png");
-	sprite.setTexture(Grass);
-	Test.loadFromFile("../Resources/Guy.png");
-	Test1.setTexture(Test);
-	goblin.loadFromFile("../Resources/Goblin.png");
-	Test2.setTexture(goblin);
+	//Tile map assets
+	grass.loadFromFile("../Resources/Ruoho.png");
+	Grass.setTexture(grass);
 	fire.loadFromFile("../Resources/RuohoFire.png");
-	fire2.setTexture(fire);
+	Fire.setTexture(fire);
+
+	//Wizard assets
+	wizard.loadFromFile("../Resources/Guy.png");
+	Wizard_.setTexture(wizard);
+	cleric.loadFromFile("../Resources/Cleric.png");
+	Cleric.setTexture(cleric);
+	necromancer.loadFromFile("../Resources/Necromancer.png");
+	Necromancer.setTexture(necromancer);
+	summoner.loadFromFile("../Resources/Summoner.png");
+	Summoner.setTexture(summoner);
+	demon.loadFromFile("../Resources/Demon.png");
+	Demon.setTexture(demon);
+
+	//Enemy assets
+	goblin.loadFromFile("../Resources/Goblin.png");
+	Goblin.setTexture(goblin);
+	hobgoblin.loadFromFile("../Resources/HobGoblin.png");
+	Hobgoblin.setTexture(hobgoblin);
+	slug.loadFromFile("../Resources/Slug.png");
+	Slug.setTexture(slug);
+	imp.loadFromFile("../Resources/Imp.png");
+	Imp.setTexture(imp);
+	minotaur.loadFromFile("../Resources/Minotaur.png");
+	Minotaur.setTexture(minotaur);
+	freak.loadFromFile("../Resources/Freak.png");
+	Freak.setTexture(freak);
+	stage1.loadFromFile("../Resources/Stage1.png");
+	Stage1.setTexture(stage1);
+	stage2.loadFromFile("../Resources/Stage2.png");
+	Stage2.setTexture(stage2);
+	stage3.loadFromFile("../Resources/Stage3.png");
+	Stage3.setTexture(stage3);
+
+
+	//Spell things
 	font.loadFromFile("../Resources/firstv2.ttf");
 	text.setFont(font);
 	text.setColor(sf::Color::Red);
@@ -55,12 +87,12 @@ void Render::update()
 				printf("invalid tile type!");
 				break;
 			case TILE_GRASS:
-				sprite.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
-				window.draw(sprite);
+				Grass.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
+				window.draw(Grass);
 				break;
 			case TILE_FIRE:
-				fire2.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
-				window.draw(fire2);
+				Fire.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
+				window.draw(Fire);
 				break;
 			}
 		}
@@ -70,43 +102,276 @@ void Render::update()
 
 	for(int i=0;i<Temp2->size();i++)
 	{
-		Test1.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
-				Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+		switch (Temp2->at(i)->C)
+		{	
+			case WIZARD:
+			Wizard_.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
 			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
 			{
-				Test1.setColor(sf::Color(255,0,0));
+				Wizard_.setColor(sf::Color(255,0,0));
 			}
 			else if(Temp2->at(i)->status == FROZEN)
 			{
-				Test1.setColor(sf::Color(0, 0, 255));
+				Wizard_.setColor(sf::Color(0, 0, 255));
 			}
 			else
 			{
-				Test1.setColor(sf::Color(255, 255, 255));
+				Wizard_.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Test1);
+			window.draw(Wizard_);
+			break;
+
+			case NECROMANCER:
+			Necromancer.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
+			{
+				Necromancer.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp2->at(i)->status == FROZEN)
+			{
+				Necromancer.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Necromancer.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Necromancer);
+			break;
+
+			case CLERIC:
+			Cleric.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
+			{
+				Cleric.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp2->at(i)->status == FROZEN)
+			{
+				Cleric.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Cleric.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Cleric);
+			break;
+
+			case SUMMONER:
+			Summoner.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
+			{
+				Summoner.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp2->at(i)->status == FROZEN)
+			{
+				Summoner.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Summoner.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Summoner);
+			break;
+
+			case DEMON:
+			Demon.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->status == FROZEN)
+			{
+				Demon.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Demon.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Demon);
+			break;
+
+			default:
+			Wizard_.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
+			{
+				Wizard_.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp2->at(i)->status == FROZEN)
+			{
+				Wizard_.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Wizard_.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Wizard_);
+			break;
+		}
 	}
 
 	for(int i=0;i<Temp->size();i++)
 	{
-
-		if(Temp->at(i)->GetType()==2)
+		switch (Temp->at(i)->type)
 		{
-			Test2.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
-				Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			case GOBLIN:
+			Goblin.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
 			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
 			{
-				Test2.setColor(sf::Color(255,0,0));
+				Goblin.setColor(sf::Color(255,0,0));
 			}
 			else if(Temp->at(i)->status == FROZEN)
 			{
-				Test2.setColor(sf::Color(0, 0, 255));
+				Goblin.setColor(sf::Color(0, 0, 255));
 			}
 			else
 			{
-				Test2.setColor(sf::Color(255, 255, 255));
+				Goblin.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Test2);
+			window.draw(Goblin);
+			break;
+
+			case HOBGOBLIN:
+			Hobgoblin.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Hobgoblin.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Hobgoblin.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Hobgoblin.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Hobgoblin);
+			break;
+
+			case SLUG:
+			Slug.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Slug.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Slug.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Slug.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Slug);
+			break;
+
+			case MINOTAUR:
+			Minotaur.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Minotaur.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Minotaur.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Minotaur.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Minotaur);
+			break;
+
+			case IMP:
+			Imp.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->status == FROZEN)
+			{
+				Imp.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Imp.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Imp);
+			break;
+
+			case CHAOS_SPAWN:
+			Freak.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Freak.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Freak.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Freak.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Freak);
+			break;
+
+			case PARACLYST_1:
+			Stage1.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Stage1.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Stage1.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Stage1.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Stage1);
+			break;
+
+			case PARACLYST_2:
+			Stage2.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Stage2.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Stage2.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Stage2.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Stage2);
+			break;
+
+			case PARACLYST_3:
+			Stage3.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp->at(i)->CurHp<Temp->at(i)->MaxHp)
+			{
+				Stage3.setColor(sf::Color(255,0,0));
+			}
+			else if(Temp->at(i)->status == FROZEN)
+			{
+				Stage3.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Stage3.setColor(sf::Color(255, 255, 255));
+			}
+			window.draw(Stage3);
+			break;
+
 		}
 
 	}

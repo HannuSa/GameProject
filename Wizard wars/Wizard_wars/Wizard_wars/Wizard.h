@@ -5,12 +5,22 @@
 #include "PassiveState.h"
 #include "Spell.h"
 
+enum Class
+{
+	WIZARD = 0,
+	NECROMANCER,
+	CLERIC,
+	SUMMONER,
+	DEMON,
+};
+
 class Wizard:public GameObject
 {
 public:
-	Wizard(sf::Vector2<int> pos,int hp,int dam);
+	Wizard(sf::Vector2<int> pos,Class c);
 	~Wizard();
 	void AddSpell(Spell s);
+	Class C;
 	int MaxHp,CurHp;
 	int startDam,CurDam;
 	int AP;
