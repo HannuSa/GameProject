@@ -3,7 +3,8 @@
 
 enum Type
 {
-	MAGIC_MISSILE = 0,
+	ATTACK = 0,
+	MAGIC_MISSILE,
 	FIREBALL,
 	ICE_BOLT,
 	STONE_WALL,

@@ -12,6 +12,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		CurDam = startDam;
 		AP = 10;
 		APMax = 10;
+		Spells.push_back(Spell(ATTACK));
 		Spells.push_back(Spell(MAGIC_MISSILE));
 		Spells.push_back(Spell(FIREBALL));
 		break;
@@ -23,6 +24,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		CurDam = startDam;
 		AP = 10;
 		APMax = 10;
+		Spells.push_back(Spell(ATTACK));
 		Spells.push_back(Spell(MAGIC_MISSILE));
 		Spells.push_back(Spell(RAISE_UNDEAD));
 		break;
@@ -34,6 +36,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		CurDam = startDam;
 		AP = 10;
 		APMax = 10;
+		Spells.push_back(Spell(ATTACK));
 		Spells.push_back(Spell(MAGIC_MISSILE));
 		Spells.push_back(Spell(HEAL));
 		break;
@@ -45,6 +48,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		CurDam = startDam;
 		AP = 10;
 		APMax = 10;
+		Spells.push_back(Spell(ATTACK));
 		Spells.push_back(Spell(MAGIC_MISSILE));
 		Spells.push_back(Spell(SUMMON_DEMON));
 		break;
@@ -56,6 +60,8 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		CurDam = startDam;
 		AP = 0;
 		APMax = 15;
+		Spells.push_back(Spell(ATTACK));
+		Spells[0].Cost = 5;
 		break;
 
 		default:

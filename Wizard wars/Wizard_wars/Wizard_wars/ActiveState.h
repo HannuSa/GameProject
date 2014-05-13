@@ -4,7 +4,7 @@
 enum ActionState
 {
 	SEEK = 0,
-	ATTACK,
+	//ATTACK,
 	FLEE,
 };
 #endif
