@@ -22,6 +22,9 @@ private:
 	sf::Texture fire;
 	sf::Sprite Fire;
 
+	sf::Texture wall;
+	sf::Sprite Wall;
+
 	//Wizard assets
 	sf::Texture wizard;
 	sf::Sprite Wizard_;
@@ -37,6 +40,9 @@ private:
 
 	sf::Texture demon;
 	sf::Sprite Demon;
+
+	sf::Texture undead;
+	sf::Sprite Undead;
 
 	sf::Texture dead;
 	sf::Sprite Dead;

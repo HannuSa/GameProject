@@ -31,7 +31,7 @@ public:
 	GameState *GetState();
 
 	TileType GetTileByPos(sf::Vector2<int> Pos);
-	sf::Vector2<int> GetTargetPos();
+
 	double GetDistance(sf::Vector2<int> Target, sf::Vector2<int> Begin);
 
 	void Attack(Creature* Attacker, Wizard* Target);
@@ -43,7 +43,9 @@ public:
 	void clearVectors();
 	void pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* nextNode, SearchNode* goalNode);
 
+	sf::Vector2<int> GetTarget(Creature *c);
 
+	//Spelling
 	Target *GetCreatureByPos(sf::Vector2<int> P);
 
 	SpellManager s;

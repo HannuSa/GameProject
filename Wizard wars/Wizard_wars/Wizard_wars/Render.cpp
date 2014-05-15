@@ -13,6 +13,8 @@ Render::Render(Scene *scene)
 	Grass.setTexture(grass);
 	fire.loadFromFile("../Resources/RuohoFire.png");
 	Fire.setTexture(fire);
+	wall.loadFromFile("../Resources/Wall.png");
+	Wall.setTexture(wall);
 
 	//Wizard assets
 	wizard.loadFromFile("../Resources/Guy.png");
@@ -23,6 +25,8 @@ Render::Render(Scene *scene)
 	Necromancer.setTexture(necromancer);
 	summoner.loadFromFile("../Resources/Summoner.png");
 	Summoner.setTexture(summoner);
+	undead.loadFromFile("../Resources/Undead.png");
+	Undead.setTexture(undead);
 	demon.loadFromFile("../Resources/Demon.png");
 	Demon.setTexture(demon);
 	dead.loadFromFile("../Resources/P_Dead.png");
@@ -56,10 +60,10 @@ Render::Render(Scene *scene)
 
 	ActionPoints.setFont(font);
 	ActionPoints.setColor(sf::Color::Red);
-	ActionPoints.setPosition(810,550);
+	ActionPoints.setPosition(710,550);
 
-	SpellList.setSize(sf::Vector2f(200,600));
-	SpellList.setPosition(800,0);
+	SpellList.setSize(sf::Vector2f(300,600));
+	SpellList.setPosition(700,0);
 	SpellList.setFillColor(sf::Color(150,75,0));
 }
 
@@ -95,6 +99,10 @@ void Render::update()
 			case TILE_FIRE:
 				Fire.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
 				window.draw(Fire);
+				break;
+			case TILE_WALL:
+				Wall.setPosition(x*32+scene->DrawPos.x,y*32+scene->DrawPos.y);
+				window.draw(Wall);
 				break;
 			}
 		}
@@ -133,6 +141,7 @@ void Render::update()
 			}
 			break;
 
+			case NECROMANCER:
 			Necromancer.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
 			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
 			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
@@ -204,6 +213,29 @@ void Render::update()
 			if(Temp2->at(i)->status != DEAD)
 			{
 					window.draw(Summoner);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
+			break;
+
+			case UNDEAD:
+			Undead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			if(Temp2->at(i)->status == FROZEN)
+			{
+				Demon.setColor(sf::Color(0, 0, 255));
+			}
+			else
+			{
+				Demon.setColor(sf::Color(255, 255, 255));
+			}
+			if(Temp2->at(i)->status != DEAD)
+			{
+				window.draw(Undead);
 			}
 			else
 			{
@@ -520,28 +552,78 @@ void Render::update()
 				{
 				for(int x = 0; x<chosen->Spells.size();x++)
 				{
-					if(chosen->Spells[x].type==MAGIC_MISSILE)
+					if(chosen->Spells[x].type==ATTACK)
 					{
-						text.setString("1)Magic Missile");
+						text.setString("1)Attack");
+						if(chosen->Spells[x].Selected == true)
+						{
+						text.setString("Attack");
+						}
+						text.setPosition(710,0+x*25);
+						window.draw(text);
+					}
+
+					else if(chosen->Spells[x].type==MAGIC_MISSILE)
+					{
+						text.setString("2)Magic Missile");
 						if(chosen->Spells[x].Selected == true)
 						{
 						text.setString("Magic Missile");
 						}
-						text.setPosition(810,0+x*25);
+						text.setPosition(710,0+x*25);
 						window.draw(text);
 					}
 
 					else if(chosen->Spells[x].type==FIREBALL)
 					{
-						text.setString("2)Fireball");
+						text.setString("3)Fireball");
 						if(chosen->Spells[x].Selected == true)
 						{
 						text.setString("Fireball");
 						}
-						text.setPosition(810,(0+x*25));
+						text.setPosition(710,(0+x*25));
 						window.draw(text);
 					}
-					
+					else if(chosen->Spells[x].type==RAISE_UNDEAD)
+					{
+						text.setString("3)Raise Undead");
+						if(chosen->Spells[x].Selected == true)
+						{
+						text.setString("Raise Undead");
+						}
+						text.setPosition(710,(0+x*25));
+						window.draw(text);
+					}
+					else if(chosen->Spells[x].type==HEAL)
+					{
+						text.setString("3)Heal");
+						if(chosen->Spells[x].Selected == true)
+						{
+						text.setString("Heal");
+						}
+						text.setPosition(710,(0+x*25));
+						window.draw(text);
+					}
+					else if(chosen->Spells[x].type==SUMMON_DEMON)
+					{
+						text.setString("3)Summon Demon");
+						if(chosen->Spells[x].Selected == true)
+						{
+						text.setString("Summon Demon");
+						}
+						text.setPosition(710,(0+x*25));
+						window.draw(text);
+					}
+					else if(chosen->Spells[x].type==STONE_WALL)
+					{
+						text.setString("4)Stone wall");
+						if(chosen->Spells[x].Selected == true)
+						{
+						text.setString("Stone wall");
+						}
+						text.setPosition(710,(0+x*25));
+						window.draw(text);
+					}
 
 					std::stringstream ss;
 					ss<<chosen->AP;

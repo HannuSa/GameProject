@@ -32,6 +32,8 @@ public:
 	void Move();
 	void SetPath(std::vector<sf::Vector2<int>> p);
 	std::vector<sf::Vector2<int>> path;
+	void update();
+	float threat;
 private:
 	std::vector<sf::Vector2<int>>::iterator it;
 };

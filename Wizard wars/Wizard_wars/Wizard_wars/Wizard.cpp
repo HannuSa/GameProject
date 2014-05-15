@@ -51,6 +51,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		Spells.push_back(Spell(ATTACK));
 		Spells.push_back(Spell(MAGIC_MISSILE));
 		Spells.push_back(Spell(SUMMON_DEMON));
+		Spells.push_back(Spell(STONE_WALL));
 		break;
 
 		case UNDEAD:
@@ -82,6 +83,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		CurDam = startDam;
 		AP = 10;
 		APMax = 10;
+		Spells.push_back(Spell(ATTACK));
 		Spells.push_back(Spell(MAGIC_MISSILE));
 		Spells.push_back(Spell(FIREBALL));
 		break;
@@ -113,4 +115,10 @@ void Wizard::Move()
 		}
 		GameObject::Move((*it));
 	}
+}
+
+void Wizard::update()
+{
+	CurDam = startDam /((CurHp+1/2));
+	threat = CurHp+CurDam+APMax+Spells.size();
 }

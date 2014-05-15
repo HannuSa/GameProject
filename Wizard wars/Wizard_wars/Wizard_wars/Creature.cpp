@@ -71,7 +71,8 @@ Creature::Creature(sf::Vector2<int> pos,Kind t):GameObject(pos)
 }
 
 Creature::~Creature()
-{}
+{
+}
 
 void Creature::SetPath(std::vector<sf::Vector2<int>> p)
 {

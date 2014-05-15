@@ -23,24 +23,24 @@ struct SearchNode
 		TILE_GRASS:
 			T = 1.0;
 			break;
-		TILE_ROCK:
-			T = 3.0;
+		TILE_WALL:
+			T = INT_MAX;
 			break;
 		TILE_FLOOR:
 			T = 1.0;
 			break;
 		TILE_FIRE:
-			T = 2.0;
+			T = 10.0;
 			break;
 		default:
-			T = 0.0;
+			T = 1.0;
 			break;
 		}
 	}
 
 	float GetF()
 	{
-		return G + H;
+		return G + H + T;
 	}
 
 	float HeuristicDistance(SearchNode &otherNode)

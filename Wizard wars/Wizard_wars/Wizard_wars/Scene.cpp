@@ -59,6 +59,11 @@ void Scene::update()
 					Creatures[i]->status=DEAD;
 					Creatures[i]->AP=0;
 				}
+	 if(Creatures[i]->status == DESTROYED)
+				{
+					Creatures[i]->~Creature();
+					Creatures.erase(Creatures.begin()+i);
+				}
 	}
 
 	if(CurrentState->returnState() == GROUP_2_TURN && CheckTurnEnd() == false)
@@ -69,15 +74,13 @@ void Scene::update()
 			{
 				if((*Indicator)->acting==true)
 				{
-					/*if((*Indicator)->type==GOBLIN)
-					{*/
 						if((*Indicator)->AP>0)
 						{
-							if(GetDistance(GetTargetPos(),(*Indicator)->GetPosition())>1)
+							if(GetDistance(GetTarget((*Indicator)),(*Indicator)->GetPosition())!=1)
 							{
 								if((*Indicator)->path.empty())
 								{
-									(*Indicator)->SetPath(FindPath((*Indicator)->GetPosition(),Wizards[0]->GetPosition()));
+									(*Indicator)->SetPath(FindPath((*Indicator)->GetPosition(),GetTarget((*Indicator))));
 								}
 								else
 								{
@@ -87,7 +90,7 @@ void Scene::update()
 							}
 							else
 							{
-								Attack((*Indicator),Wizards[0]);
+								Attack((*Indicator),GetCreatureByPos(GetTarget((*Indicator)))->W);
 								(*Indicator)->AP-=1;
 							}
 						}
@@ -96,7 +99,6 @@ void Scene::update()
 							(*Indicator)->acting=false;
 							Indicator++;
 						}
-					/*}*/
 				}
 			}
 			else
@@ -122,9 +124,30 @@ void Scene::update()
 		}
 }
 
+sf::Vector2<int> Scene::GetTarget(Creature *c)
+{
+	Wizard* t = Wizards[0];
+		for(unsigned int i = 0; i < Wizards.size(); i++)
+		{
+				if(c->type == CHAOS_SPAWN)
+				{
+				if(Wizards[i]->C == SUMMONER)
+					{
+						return Wizards[i]->GetPosition();
+					}
+				}
+				Wizards[i]->update();
+				if(Wizards[i]->threat > t->threat)
+				{
+					t = Wizards[i];
+				}
+		}
+	return t->GetPosition();
+}
+
 void Scene::MoveCreature(Creature *c)
 {
-	c->Move();//(FindPath(c->GetPosition(),GetTargetPos()));
+	c->Move();
 }
 
 TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
@@ -132,17 +155,19 @@ TileType Scene::GetTileByPos(sf::Vector2<int> Pos)
 	return tilemap.tiles[Pos.x][Pos.y];
 }
 
-
-sf::Vector2<int> Scene::GetTargetPos()
-{
-	sf::Vector2<int> FinalPos(Wizards.at(0)->GetPosition());
-	return FinalPos;
-}
-
 double Scene::GetDistance(sf::Vector2<int> Target, sf::Vector2<int> Begin)
 {
-	double result = std::sqrt(((float)Target.x-Begin.x)*(Target.x-Begin.x)+(Target.y-Begin.y)*(Target.y-Begin.y));
-	return result;
+	/*double result = std::sqrt(((float)Target.x-Begin.x)*(Target.x-Begin.x)+(Target.y-Begin.y)*(Target.y-Begin.y));
+	return result;*/
+	if(Target.x-1 == Begin.x || Target.x+1 == Begin.x || Target.x == Begin.x)
+	{
+		if(Target.y-1 == Begin.y || Target.y+1 == Begin.y || Target.x == Begin.x)
+		{
+			return 1.0;
+		}
+	}
+
+	return 2.0;
 }
 
 void Scene::Attack(Creature* Attacker, Wizard* Target)
@@ -246,7 +271,7 @@ std::vector<sf::Vector2<int>> Scene::FindPathReversed(sf::Vector2<int> Start,sf:
 
 			for(std::vector<SearchNode*>::iterator it = openList.begin(); it != openList.end(); it++)
 			{
-				//propably unnecessary
+				//propably unnecessary(honestly no fucking idea)
 			}
 
 			SearchNode* getPath = goalNode;
@@ -330,19 +355,22 @@ void Scene::pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* next
 {
 	//tähän väliin checkki että voidaanko mennä ja return(eli break) jos on
 	if(Position.x < 0 || Position.x > TILEMAP_WIDTH ||
-		Position.y < 0 || Position.y > TILEMAP_HEIGHT/*||
-		!tile == walkable*/)
+		Position.y < 0 || Position.y > TILEMAP_HEIGHT ||
+		GetTileByPos(Position) == TILE_WALL)
 	return;
 	//Checkki otusten paikoille
 	for(unsigned int i = 0; i < Creatures.size(); i++)
 	{
-		if(Creatures[i]->GetPosition() == Position)
+		if(Creatures[i]->GetPosition() != goalNode->Position)
 		{
-			return;
+			if(Creatures[i]->GetPosition() == Position)
+			{
+				return;
+			}
 		}
 	}
-	//Checkki velhojen paikoille
-	/*for(unsigned int j = 0; j < Wizards.size(); j++)
+	//Checkki velhoje paikoille
+	for(unsigned int j = 0; j < Wizards.size(); j++)
 	{
 		if(Wizards[j]->GetPosition() != goalNode->Position)
 		{
@@ -351,7 +379,7 @@ void Scene::pathOpened(sf::Vector2<int> Position, float newCost,SearchNode* next
 				return;
 			}
 		}
-	}*/
+	}
 
 	for(unsigned int i = 0; i < closedList.size(); i++)
 	{
