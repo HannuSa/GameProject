@@ -11,6 +11,7 @@ enum Class
 	NECROMANCER,
 	CLERIC,
 	SUMMONER,
+	UNDEAD,
 	DEMON,
 };
 

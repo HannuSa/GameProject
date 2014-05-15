@@ -5,8 +5,8 @@ enum TileType
 {
 	TILE_VOID = 0,
 	TILE_GRASS,
-	TILE_ROCK,
-	TILE_FLOOR,
+	TILE_MUDD,
+	TILE_WALL,
 	TILE_FIRE,
 };
 #endif

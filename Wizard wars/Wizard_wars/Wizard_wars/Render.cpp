@@ -25,6 +25,8 @@ Render::Render(Scene *scene)
 	Summoner.setTexture(summoner);
 	demon.loadFromFile("../Resources/Demon.png");
 	Demon.setTexture(demon);
+	dead.loadFromFile("../Resources/P_Dead.png");
+	Dead.setTexture(dead);
 
 	//Enemy assets
 	goblin.loadFromFile("../Resources/Goblin.png");
@@ -119,10 +121,18 @@ void Render::update()
 			{
 				Wizard_.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Wizard_);
+			if(Temp2->at(i)->status != DEAD)
+			{
+				window.draw(Wizard_);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
-			case NECROMANCER:
 			Necromancer.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
 			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
 			if(Temp2->at(i)->CurHp<Temp2->at(i)->MaxHp)
@@ -137,7 +147,16 @@ void Render::update()
 			{
 				Necromancer.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Necromancer);
+			if(Temp2->at(i)->status != DEAD)
+			{
+				window.draw(Necromancer);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case CLERIC:
@@ -155,7 +174,16 @@ void Render::update()
 			{
 				Cleric.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Cleric);
+			if(Temp2->at(i)->status != DEAD)
+			{
+				window.draw(Cleric);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case SUMMONER:
@@ -173,7 +201,16 @@ void Render::update()
 			{
 				Summoner.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Summoner);
+			if(Temp2->at(i)->status != DEAD)
+			{
+					window.draw(Summoner);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case DEMON:
@@ -187,7 +224,16 @@ void Render::update()
 			{
 				Demon.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Demon);
+			if(Temp2->at(i)->status != DEAD)
+			{
+				window.draw(Demon);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			default:
@@ -205,7 +251,16 @@ void Render::update()
 			{
 				Wizard_.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Wizard_);
+			if(Temp2->at(i)->status != DEAD)
+			{
+				window.draw(Wizard_);
+			}
+			else
+			{
+			Dead.setPosition(Temp2->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp2->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 		}
 	}
@@ -229,9 +284,18 @@ void Render::update()
 			{
 				Goblin.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Goblin);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Goblin);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
-
+			
 			case HOBGOBLIN:
 			Hobgoblin.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
 			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
@@ -247,7 +311,16 @@ void Render::update()
 			{
 				Hobgoblin.setColor(sf::Color(255, 255, 255));
 			}
+			if(Temp->at(i)->status != DEAD)
+			{
 			window.draw(Hobgoblin);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+				window.draw(Dead);
+			}
 			break;
 
 			case SLUG:
@@ -265,7 +338,16 @@ void Render::update()
 			{
 				Slug.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Slug);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Slug);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case MINOTAUR:
@@ -283,7 +365,16 @@ void Render::update()
 			{
 				Minotaur.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Minotaur);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Minotaur);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case IMP:
@@ -297,7 +388,16 @@ void Render::update()
 			{
 				Imp.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Imp);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Imp);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case CHAOS_SPAWN:
@@ -315,7 +415,16 @@ void Render::update()
 			{
 				Freak.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Freak);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Freak);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case PARACLYST_1:
@@ -333,7 +442,16 @@ void Render::update()
 			{
 				Stage1.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Stage1);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Stage1);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case PARACLYST_2:
@@ -351,7 +469,16 @@ void Render::update()
 			{
 				Stage2.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Stage2);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Stage2);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 			case PARACLYST_3:
@@ -369,7 +496,16 @@ void Render::update()
 			{
 				Stage3.setColor(sf::Color(255, 255, 255));
 			}
-			window.draw(Stage3);
+			if(Temp->at(i)->status != DEAD)
+			{
+				window.draw(Stage3);
+			}
+			else
+			{
+			Dead.setPosition(Temp->at(i)->GetPosition().x*32+scene->DrawPos.x,
+			Temp->at(i)->GetPosition().y*32+scene->DrawPos.y);
+			window.draw(Dead);
+			}
 			break;
 
 		}

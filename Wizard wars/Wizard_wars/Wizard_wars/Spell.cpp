@@ -39,7 +39,7 @@ Spell::Spell(Type t)
 	}
 	else if(type == SUMMON_DEMON)
 	{
-		Cost = 8;
+		Cost = 10;
 		Damage = 0;
 	}
 	else if(type == HEAL)

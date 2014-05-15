@@ -53,6 +53,17 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		Spells.push_back(Spell(SUMMON_DEMON));
 		break;
 
+		case UNDEAD:
+		MaxHp = 20;
+		startDam = 10;
+		CurHp = MaxHp;
+		CurDam = startDam;
+		AP = 0;
+		APMax = 10;
+		Spells.push_back(Spell(ATTACK));
+		Spells[0].Cost = 5;
+
+
 		case DEMON:
 		MaxHp = 50;
 		startDam = 17;
@@ -65,7 +76,7 @@ Wizard::Wizard(sf::Vector2<int> pos,Class c):GameObject(pos)
 		break;
 
 		default:
-			MaxHp = 20;
+		MaxHp = 20;
 		startDam = 2;
 		CurHp = MaxHp;
 		CurDam = startDam;

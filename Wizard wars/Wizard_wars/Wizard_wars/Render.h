@@ -37,6 +37,9 @@ private:
 
 	sf::Texture demon;
 	sf::Sprite Demon;
+
+	sf::Texture dead;
+	sf::Sprite Dead;
 		
 	//Enemy assets
 	sf::Texture goblin;
